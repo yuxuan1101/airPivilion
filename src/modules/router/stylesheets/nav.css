@@ -33,6 +33,10 @@ a {
 }
 
 .content {
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  width: 100%;
 }
 .container {
   position: relative;

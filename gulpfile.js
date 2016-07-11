@@ -12,15 +12,15 @@ gulp.task('html:prod', function() {
         .pipe(htmlreplace({
             'js': 'bundle.js'
         }))
-        .pipe(gulp.dest('views'));
+        .pipe(gulp.dest('.'));
 });
 
 gulp.task('html:dev', function() {
     return gulp.src('src/index.html')
         .pipe(htmlreplace({
-            'js': 'http://localhost:8080/dist/bundle.js'
+            'js': 'http://localhost:8080/bundle.js'
         }))
-        .pipe(gulp.dest('views'));
+        .pipe(gulp.dest('.'));
 });
 
 gulp.task('start', function (callback) {
@@ -40,7 +40,8 @@ gulp.task("webpack:build", function(callback) {
             "process.env": {
                 // This has effect on the react lib size
                 "NODE_ENV": JSON.stringify("production")
-            }
+            },
+            _DEBUG_ : true
         }),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin()
@@ -69,7 +70,14 @@ gulp.task("webpack-dev-server", function(callback) {
     serverConfig.debug = true;
     serverConfig.entry.unshift("webpack-dev-server/client?http://localhost:8080", "webpack/hot/dev-server");
     serverConfig.plugins = serverConfig.plugins.concat(
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin({
+          "process.env": {
+              // This has effect on the react lib size
+              "NODE_ENV": JSON.stringify("development")
+          },
+          _DEBUG_ : true
+      })
     )
 
     // remove dist directory

@@ -3,7 +3,7 @@ import React from 'react'
 export default React.createClass({
   getInitialState() {
     let result;
-    let url = "./getData/443"
+    let url = "http://localhost:3000/getData/443"
     fetch(url).then(function (res) {
       return res.json();
     }).then(function(data) {

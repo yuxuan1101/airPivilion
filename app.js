@@ -29,7 +29,7 @@ app.use(async (ctx, next) => {
   console.log(ctx.status);
   if(ctx.status===404&&!ctx.path.match(/\./)) {
     console.log("send html. -"+ ctx.path);
-    await send(ctx, 'views/index.html');
+    await send(ctx, 'index.html');
   }
 });
 

@@ -6,16 +6,14 @@ import About from './modules/router/About'
 import Repos from './modules/router/Repos'
 import Repo from './modules/router/Repo'
 import Home from './modules/router/Home'
-import Login from './modules/login/Login'
 // import chat from './modules/chat/chat'
 
 import styles from './index.css'
 render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Login}/>
+      <IndexRoute component={Home}/>
 
-      <Route path="/login" component={Login}/>
       <Route path="/repos" component={Repos}>
         <Route path="/repos/:userName/:repoName" component={Repo}/>
       </Route>
