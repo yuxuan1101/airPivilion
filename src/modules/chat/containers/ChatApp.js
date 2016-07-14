@@ -5,6 +5,7 @@ import Content from '../components/Content';
 import InputBox from '../components/InputBox';
 import  UserList from '../components/UserList';
 import styles from './ChatApp.less';
+import {} from 'redux'
 //import {socket} from '../socketIO';
 
 class ChatApp extends React.Component {

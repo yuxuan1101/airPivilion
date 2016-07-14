@@ -6,8 +6,8 @@ import About from './modules/router/About'
 import Repos from './modules/router/Repos'
 import Repo from './modules/router/Repo'
 import Home from './modules/router/Home'
-import Login from './modules/login/Login'
-// import chat from './modules/chat/chat'
+import Login from './modules/login/login'
+import Chat from './modules/chat/chat'
 
 import styles from './index.css'
 render((
@@ -20,6 +20,7 @@ render((
         <Route path="/repos/:userName/:repoName" component={Repo}/>
       </Route>
       <Route path="/about" component={About}/>
+      <Route path="/chat" component={Chat}/>
     </Route>
   </Router>
 ), document.getElementById('root'))

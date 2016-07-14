@@ -94,6 +94,8 @@ gulp.task("webpack-dev-server", function(callback) {
         //     '/some/path*': {
         //         target: 'https://other-server.example.com',
         //     },
+        //     'path/*': function(req,res) {
+        //     }
         // },
         stats: {
             color: true
