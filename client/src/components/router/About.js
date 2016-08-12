@@ -3,7 +3,7 @@ import React from 'react'
 export default React.createClass({
   getInitialState() {
     let result;
-    let url = "http://localhost:3000/getData/443"
+    let url = "/user"
     fetch(url).then(function (res) {
       return res.json();
     }).then(function(data) {
@@ -16,6 +16,6 @@ export default React.createClass({
     return {}
   },
   render() {
-    return <div>About111</div>
+    return <div>About1</div>
   }
 })

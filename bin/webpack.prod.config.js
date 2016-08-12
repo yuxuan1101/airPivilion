@@ -9,20 +9,34 @@ var CleanPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     devtool: 'eval',
+    context: path.resolve(__dirname, '..'),
     entry: [
         './client/src/index'
     ],
     output: {
-        path: path.join(__dirname, 'client/dist'),
+        path: path.join(__dirname, '../client/dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
     plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                // Useful to reduce the size of client-side libraries, e.g. react
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
         new webpack.NoErrorsPlugin(),
         new htmlWebpackPlugin({
             title: 'airPivilion',
             filename: 'index.html',
-            template: './client/src/index.template.html'
+            template: 'client/src/index.template.html'
         }),
         new CleanPlugin(['../client/dist'])
     ],
@@ -33,8 +47,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loaders: ['react-hot', 'babel?{"presets":["react","es2015","stage-0"],"plugins":["transform-runtime",["antd",{"style":"css"}]]}'],
-                include: path.join(__dirname, 'client/src')
+                loaders: ['babel?{"presets":["react","es2015","stage-0"],"plugins":["transform-runtime"]}'],
+                exclude: /node_modules/
             },
             {
                 test:/\.css$/,
@@ -44,12 +58,11 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:5]!less',
-                include: path.join(__dirname, 'client/src')
             },
             {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader?limit=8192',
-                include: path.join(__dirname, 'client/src/images')
+                include: path.join(__dirname, '../client/src/images')
             },
             { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&minetype=application/font-woff' },
             { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&minetype=application/font-woff' },

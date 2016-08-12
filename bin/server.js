@@ -4,7 +4,7 @@
 var webpack = require('webpack');
 var path = require('path')
 var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.dev.config.js');
+var config = require('./webpack.dev.config');
 var compiler = webpack(config);
 
 var server = new WebpackDevServer(compiler, {
@@ -16,19 +16,21 @@ var server = new WebpackDevServer(compiler, {
     inline: true,
     lazy: false,
     historyApiFallback: true,
-    headers: {
-        "Access-Control-Allow-Origin": "*"
-    },
+    // headers: {
+    //     "Access-Control-Allow-Origin": "*"
+    // },
     stats: {
         colors: true
     },
     proxy: {
-        "/api/*": "http://localhost:3000/api",
-        "/*.*": "http://localhost:3000"
+        "/user": {
+            target: 'http://localhost:3000',
+            secure: false
+        }
     }
 });
 server.use(require('webpack-hot-middleware')(compiler));
-server.listen(8080, 'localhost', function (err) {
+server.listen(8080, '0.0.0.0', function (err) {
     if (err) {
         console.log(err);
     }

@@ -63,7 +63,6 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:5]!less',
-                include: path.join(__dirname, '../client/src')
             },
             {
                 test: /\.(png|jpg|gif)$/,
