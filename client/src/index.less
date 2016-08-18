@@ -1,0 +1,61 @@
+@navHeight: 80px;
+
+:global(#app) {
+  height: 100%;
+  div {
+    min-height: 100%;
+  }
+}
+
+:global(#header) {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  transition-property: opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: initial;
+  transition-delay: initial;
+  background-color: rgb(64, 64, 64);
+  border-bottom: 1px solid rgb(64, 64, 64);
+  height: @navHeight;
+  margin-bottom: 24px;
+  padding: 0 4%;
+  width: 100%;
+}
+:global(#logo span) {
+  float: right;
+  font-size: 18px;
+  font-family: Raleway,Hiragino Sans GB,sans-serif;
+  height: 80px;
+  line-height: 80px;
+  text-transform: uppercase;
+}
+:global(#nav) {
+  height: @navHeight;
+  float: right;
+  font-size: 16px;
+  background-color: rgb(64, 64, 64);
+  border-bottom-color: rgb(64, 64, 64);
+  li {
+    height: 80px;
+    line-height: 80px;
+    min-width: 72px;
+    text-align: center;
+    border-bottom-width: 3px;
+    a {
+      color: #eee;
+      transition: color 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    }
+  }
+  :global(li.ant-menu-item-selected a) {
+    color: #2db7f5;
+    font-weight: 700;
+  }
+}
+
+:global(.main-wrapper) {
+  width: 92%;
+  margin: 0 auto;
+  border-radius: 6px;
+  padding: 24px 0 0;
+  margin-bottom: 24px;
+}

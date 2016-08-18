@@ -20,7 +20,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '..', '/client/dist'),
         filename: 'bundle.js',
-        publicPath: '//localhost:'+host+'/',
+        publicPath: 'http://localhost:'+host+'/',
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
@@ -35,6 +35,7 @@ module.exports = {
         new htmlWebpackPlugin({
             title: 'airPivilion',
             filename: 'index.html',
+            favicon: '../client/src/images/favicon.ico',
             template: '../client/src/index.template.html'
         })
     ],
@@ -50,7 +51,9 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loaders: ['react-hot', 'babel?{"presets":["react","es2015","stage-0"],"plugins":["transform-runtime"]}'],
+                loaders: ['react-hot',
+                    'babel?{"presets":["react","es2015","stage-0"],"plugins":["transform-runtime",["antd", { "libraryName": "antd", "style": true }]]}'
+                ],
                 exclude: /node_modules/
             },
             {
@@ -63,6 +66,12 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:5]!less',
+                include: path.join(__dirname,"../client/src")
+            },
+            {
+                test: /\.less$/,
+                loader: 'style!css!less',
+                include: path.join(__dirname,"../node_modules")
             },
             {
                 test: /\.(png|jpg|gif)$/,

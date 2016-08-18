@@ -16,9 +16,6 @@ export default React.createClass({
             backgroundAttachment: 'fixed',
             backgroundSize: '100% 100%'
         };
-        if(process.env.NODE_ENV === "development")
-            style.backgroundImage = "url("+ocImage+")";
-
         return (
             <div style={{display: 'flex',flexDirection: 'column',height: '100vh'}}>
                 <div style={{flex: '0 0 60px',background: '#000000',boxShadow: '0px 0px 10px #111111'}}>
