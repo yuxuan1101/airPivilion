@@ -48,7 +48,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loaders: ['babel?{"presets":["react","es2015","stage-0"],"plugins":["transform-runtime",["antd", { "libraryName": "antd", "style": true }]]}'],
+                loaders: ['babel?{"presets":["react","es2015","stage-0"],"plugins":["transform-runtime"]}'],
                 exclude: /node_modules/
             },
             {
