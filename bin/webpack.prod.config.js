@@ -36,7 +36,7 @@ module.exports = {
         new htmlWebpackPlugin({
             title: 'airPivilion',
             filename: 'index.html',
-            favicon: '../client/src/images/favicon.ico',
+            favicon: 'client/src/images/favicon.ico',
             template: 'client/src/index.template.html'
         }),
         new CleanPlugin(['../client/dist'])
@@ -53,12 +53,13 @@ module.exports = {
             },
             {
                 test:/\.css$/,
-                loader:'style!css?'
+                loaders: ['style','css']
             },
             // LESS
             {
                 test: /\.less$/,
                 loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:5]!less',
+                include: path.join(__dirname,"../client/src")
             },
             {
                 test: /\.(png|jpg|gif)$/,

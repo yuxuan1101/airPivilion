@@ -5,6 +5,7 @@
 
 const Router = require('koa-router');
 const send = require('koa-send');
+const user = require('../controllers/userController');
 
 const router = new Router();
 
@@ -13,5 +14,7 @@ router.get('/', async (ctx, next) => {
     // send(ctx, 'index.html');
     ctx.body = {'user': "11111"};
 })
+
+router.post('/', user.createUser)
 
 module.exports = router;

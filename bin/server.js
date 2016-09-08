@@ -23,7 +23,11 @@ var server = new WebpackDevServer(compiler, {
         colors: true
     },
     proxy: {
-        "/user": {
+        "/user*": {
+            target: 'http://localhost:3000',
+            secure: false
+        },
+        "/auth*": {
             target: 'http://localhost:3000',
             secure: false
         }
