@@ -7,18 +7,20 @@ const passport = require('koa-passport');
 module.exports = {
   authUser: async function authUser (ctx, next) {
     return passport.authenticate('local', (user) => {
-      if (!user) {
-        ctx.throw(401)
+
+      if (user.error) {
+        ctx.body = user;
+        return ;
       }
 
-      // const token = user.generateToken()
-
+      const token = user.generateToken()
+      console.log(token);
       const response = user.toJSON()
 
       delete response.password
 
       ctx.body = {
-        // token,
+        token,
         user: response
       }
     })(ctx, next)

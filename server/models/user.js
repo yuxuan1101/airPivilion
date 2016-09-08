@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const User = new mongoose.Schema({
   type: { type: String, default: 'User' },
@@ -37,6 +38,12 @@ User.methods.validatePassword = function validatePassword (password) {
       resolve(isMatch)
     })
   })
+}
+
+User.methods.generateToken = function generateToken () {
+  const user = this
+
+  return jwt.sign({ id: user.id }, "airpivilion")
 }
 
 module.exports = mongoose.model('User', User);

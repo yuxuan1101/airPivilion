@@ -21,16 +21,13 @@ passport.use('local', new Strategy({
 }, async (username, password, done) => {
   try {
     const user = await User.findOne({ username })
-    if (!user) { return done(null, false) }
+    if (!user) { return done(null, {error:true, errMsg: "此用户不存在"}) }
 
     console.log(user);
 
     try {
       const isMatch = await user.validatePassword(password)
-      console.log(isMatch);
-      console.log(username);
-      console.log(password);
-      if (!isMatch) { return done(null, false) }
+      if (!isMatch) { return done(null, {error:true, errMsg: "密码错误"}) }
 
       done(null, user)
     } catch (err) {

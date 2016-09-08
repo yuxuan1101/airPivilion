@@ -86,10 +86,27 @@ export default class Login extends React.Component{
         throw new Error(data.errMsg);
       }else {
         let user = data.user;
-        console.log(user);
+        console.log(data);
       }
     }).catch(function(e) {
-      console.log(e);
+      switch (e.message) {
+        case "此用户不存在":
+          context.setState({
+            open: false,
+            registerLoading: false,
+            errMsg: {name: "此用户不存在。"}
+          });
+          setTimeout(()=>context.refs.username.focus(),500);
+          break;
+        case "密码错误":
+          context.setState({
+            open: false,
+            registerLoading: false,
+            errMsg: {pass: "密码错误。"}
+          });
+          setTimeout(()=>context.refs.password.focus(),500);
+          break;
+      }
     });
   };
   componentDidMount() {
@@ -109,6 +126,7 @@ export default class Login extends React.Component{
         <div>
           <TextField
             ref="username"
+            onChange={() =>{if(this.state.errMsg.name) this.setState({errMsg:{name:undefined}})}}
             hintText="Username Field"
             errorText={this.state.errMsg.name}
             floatingLabelText="Username"
@@ -118,6 +136,7 @@ export default class Login extends React.Component{
         <div>
           <TextField
             ref="password"
+            onChange={() =>{if(this.state.errMsg.pass) this.setState({errMsg:{pass:undefined}})}}
             hintText="Password Field"
             errorText={this.state.errMsg.pass}
             floatingLabelText="Password"
