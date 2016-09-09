@@ -26,7 +26,6 @@ export default class Root extends React.Component {
     });
   }
 
-
   render() {
     return (
       <MuiThemeProvider muiTheme={this.muiTheme}>
@@ -39,7 +38,7 @@ export default class Root extends React.Component {
           display: 'flex',
           flexFlow: 'column nowrap'
         }}>
-          <Header />
+          <Header location={this.props.location}/>
           <div style={{
             backgroundColor: '#fff',
             flex: 'auto'

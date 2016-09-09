@@ -3,13 +3,17 @@
  */
 
 import React from 'react'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 
-export default class Login extends React.Component{
+import {login} from '../../actions/actions'
+
+class Login extends React.Component{
   constructor(props) {
     super(props);
     this.face = {
@@ -28,8 +32,17 @@ export default class Login extends React.Component{
       }
     }
   }
+  componentDidMount() {
+    setTimeout(()=>this.refs.username.focus(),500);
+
+  };
+  snackbarClose = () => {
+    this.setState({
+      open: true,
+    });
+  };
   registerTouch = () => {
-    const context = this;
+    const instance = this;
     fetch("/user",{
       method: "POST",
       headers: {
@@ -44,20 +57,22 @@ export default class Login extends React.Component{
         throw new Error(data.errMsg);
       }else {
         let user = data.user;
-        context.setState({
+        instance.setState({
           registerLoading: false,
         });
       }
     }).catch(function(e) {
       switch (e.message) {
         case "用户已存在":
-          context.setState({
+          instance.setState({
             open: false,
             registerLoading: false,
             errMsg: {name: "此名称已存在。"}
           });
-          setTimeout(()=>context.refs.username.focus(),500);
+          setTimeout(()=>instance.refs.username.focus(),500);
           break;
+        default:
+          console.log("unknow error!",e);
       }
     });
     this.setState({
@@ -65,13 +80,8 @@ export default class Login extends React.Component{
       open: true,
     });
   };
-  snackbarClose = () => {
-    this.setState({
-      open: true,
-    });
-  };
   login = () => {
-    const context = this;
+    const instance = this;
     fetch("/auth",{
       method: "POST",
       headers: {
@@ -85,33 +95,32 @@ export default class Login extends React.Component{
       if(data.error) {
         throw new Error(data.errMsg);
       }else {
-        let user = data.user;
-        console.log(data);
+        instance.props.login(data);
+        let {state} = instance.props.location;
+        instance.context.router.push(state?state.nextUrl:'/');
       }
     }).catch(function(e) {
       switch (e.message) {
         case "此用户不存在":
-          context.setState({
+          instance.setState({
             open: false,
             registerLoading: false,
             errMsg: {name: "此用户不存在。"}
           });
-          setTimeout(()=>context.refs.username.focus(),500);
+          setTimeout(()=>instance.refs.username.focus(),500);
           break;
         case "密码错误":
-          context.setState({
+          instance.setState({
             open: false,
             registerLoading: false,
             errMsg: {pass: "密码错误。"}
           });
-          setTimeout(()=>context.refs.password.focus(),500);
+          setTimeout(()=>instance.refs.password.focus(),500);
           break;
+        default:
+          console.log("unknow error!",e)
       }
     });
-  };
-  componentDidMount() {
-    setTimeout(()=>this.refs.username.focus(),500);
-
   };
   render() {
     return (
@@ -163,3 +172,9 @@ export default class Login extends React.Component{
     );
   }
 }
+Login.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
+export default connect(null,
+  { login,push }
+)(Login)

@@ -33,7 +33,7 @@ export default class Header extends React.Component {
           title="Air Pivilion"
           titleStyle={{textAlign: 'center'}}
           zDepth={0}
-          iconElementRight={<RightNav />}
+          iconElementRight={<RightNav location={this.props.location}/>}
         />
         <div style={{display: 'inline-flex',justifyContent: 'space-between',alignItems: 'flex-end',width: '100%'}}>
           <div>

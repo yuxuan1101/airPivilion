@@ -2,7 +2,6 @@ import {createStore} from 'redux';
 import rootReducer from '../reducers/index';
 
 function configureStore(initialState = {}) {
-  console.log(rootReducer);
   const store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(rootReducer, initialState);
 
   if (module.hot) {

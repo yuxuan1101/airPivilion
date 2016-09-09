@@ -24,7 +24,12 @@ export default class RightNav extends React.Component {
                   onTouchTap={()=>window.open('https://github.com/yuxuan1101/airPivilion', '_blank')}/>
         <Divider />
         <MenuItem primaryText="Log out" leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
-                  onTouchTap={()=>this.context.router.push('/login')}/>
+                  onTouchTap={()=>
+                    this.context.router.push({
+                      pathname:'/login',
+                      state:{nextUrl: this.props.location.pathname}
+                    })
+                  }/>
       </IconMenu>
     )
   }
