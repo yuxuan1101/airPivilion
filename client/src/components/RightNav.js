@@ -23,7 +23,7 @@ export default class RightNav extends React.Component {
         <MenuItem primaryText="Github" leftIcon={<FontIcon className="muidocs-icon-custom-github" />}
                   onTouchTap={()=>window.open('https://github.com/yuxuan1101/airPivilion', '_blank')}/>
         <Divider />
-        <MenuItem primaryText="Log out" leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
+        <MenuItem primaryText={this.props.signed?"Log out":"Log in"} leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
                   onTouchTap={()=>
                     this.context.router.push({
                       pathname:'/login',

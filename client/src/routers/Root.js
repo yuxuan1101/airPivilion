@@ -41,7 +41,9 @@ export default class Root extends React.Component {
           <Header location={this.props.location}/>
           <div style={{
             backgroundColor: '#fff',
-            flex: 'auto'
+            flex: 'auto',
+            display: 'flex',
+            flexDirection: 'column'
           }}>
             {this.props.children}
           </div>

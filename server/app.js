@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
+const http = require('http');
 const co = require('co');
 const convert = require('koa-convert');
 const json = require('koa-json');
@@ -43,12 +44,16 @@ app.use(async(ctx, next) => {
 const router = require('./routes/index');
 app.use(router.routes(), router.allowedMethods());
 
-app.on('error', function (err, ctx) {
+const server = http.createServer(app.callback());
+const io = require('socket.io')(server);
+require('./socket/index')(io);
+
+server.on('error', function (err, ctx) {
   console.log(err)
   logger.error('server error', err, ctx);
 });
 
-app.listen(config.app.port, function () {
+server.listen(config.app.port, function () {
   console.log("listening at " + config.app.port);
 })
 // module.exports = app;

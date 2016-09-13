@@ -12,7 +12,8 @@ export default function chatContent(state = [], action) {
           system: false,
           from: action.from,
           to: action.to,
-          text: action.text
+          text: action.text,
+          data: action.data
         }
       ]
     case SEND_SYSTEMMESSAGE:
@@ -20,7 +21,8 @@ export default function chatContent(state = [], action) {
         ...state,
         {
           system: true,
-          text: action.text
+          text: action.text,
+          data: action.data
         }
       ]
     case LOGIN:

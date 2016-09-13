@@ -10,6 +10,7 @@ import About from './components/router/About'
 import Repos from './components/router/Repos'
 import Repo from './components/router/Repo'
 import Login from './routers/login'
+import Chat from './routers/chat'
 
 import './stylesheets/index.less'
 import './stylesheets/font/icons.css'
@@ -33,7 +34,7 @@ render((
             <Route path="/repos/:userName/:repoName" component={Repo}/>
           </Route>
           <Route path="/about" component={About}/>
-          <Route path="/chat" component={Home}/>
+          <Route path="/chat" component={Chat}/>
         </Route>
       </Router>
     </Provider>
