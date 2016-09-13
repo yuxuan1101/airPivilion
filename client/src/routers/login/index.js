@@ -47,7 +47,7 @@ class Login extends React.Component{
       method: "POST",
       headers: {
         "Accept": "application/json, text/plain, */*",
-        "Content-Type": "application/x-www.js-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "username="+this.refs.username.getValue()+"&password="+this.refs.password.getValue()
     }).then(function(res) {
@@ -87,7 +87,7 @@ class Login extends React.Component{
       method: "POST",
       headers: {
         "Accept": "application/json, text/plain, */*",
-        "Content-Type": "application/x-www.js-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "username="+this.refs.username.getValue()+"&password="+this.refs.password.getValue()
     }).then(function(res) {
