@@ -20,7 +20,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '..', '/client/dist'),
         filename: 'bundle.js',
-        publicPath: 'http://localhost:'+host+'/',
+        // publicPath: 'http://localhost:'+host+'/',
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
@@ -47,7 +47,13 @@ module.exports = {
         ],
         extensions: ['', '.js', '.json']
     },
+    eslint: {
+        formatter: require('eslint-friendly-formatter')
+    },
     module: {
+        preLoaders: [
+            {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
+        ],
         loaders: [
             {
                 test: /\.js$/,
