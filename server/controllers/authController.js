@@ -1,20 +1,19 @@
 /**
  * Created by yuxuan on 9/6/16.
  */
-const User = require('../models/user');
-const passport = require('koa-passport');
+// const User = require('../models/user')
+const passport = require('koa-passport')
 
 module.exports = {
   authUser: async function authUser (ctx, next) {
     return passport.authenticate('local', (user) => {
-
       if (user.error) {
-        ctx.body = user;
-        return ;
+        ctx.body = user
+        return
       }
 
       const token = user.generateToken()
-      console.log(token);
+      console.log(token)
       const response = user.toJSON()
 
       delete response.password

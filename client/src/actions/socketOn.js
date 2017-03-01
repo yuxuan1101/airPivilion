@@ -1,12 +1,12 @@
 /**
  * Created by yuxuan on 9/13/16.
  */
-import socket from './socket'
+// import socket from './socket'
 
-export const OTHERS_LOGIN = "OTHERS_LOGIN";
+export const OTHERS_LOGIN = 'OTHERS_LOGIN'
 
-export function othersLogin(obj) {
+export function othersLogin (obj) {
   return {
-    type: OTHERS_LOGIN,
+    type: OTHERS_LOGIN
   }
 }

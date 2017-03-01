@@ -1,11 +1,11 @@
 /**
  * Created by yuxuan on 9/12/16.
  */
-import React from 'react';
-import Message from './Message';
+import React from 'react'
+import Message from './Message'
 
 export default class InputBox extends React.Component {
-  render() {
+  render () {
     return (
       <ul>
         {this.props.chatContent.map((message, index) =>

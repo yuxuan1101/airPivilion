@@ -1,5 +1,4 @@
-import {combineReducers} from 'redux'
-import {LOGIN, CHANGE_TO, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
+import {LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
 
 // function inputBox(state = {from: "", to: "所有人"}, action) {
 //   switch (action.type) {
@@ -16,13 +15,13 @@ import {LOGIN, CHANGE_TO, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
 //   }
 // }
 
-function userList(state = [{name: "所有人", status: false}], action) {
+function userList (state = [{name: '所有人', status: false}], action) {
   switch (action.type) {
     case LOGIN:
     case OTHERS_LOGIN:
     case OTHERS_LOGOUT:
       return [
-        {name: "所有人", status: false},
+        {name: '所有人', status: false},
         ...action.users
       ]
     default:
@@ -37,4 +36,4 @@ function userList(state = [{name: "所有人", status: false}], action) {
 // });
 const reducer = userList
 
-export default reducer;
+export default reducer

@@ -4,17 +4,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {othersLogin} from '../../actions/socketOn'
-import Paper from 'material-ui/Paper';
-import style from './chat.less';
+import Paper from 'material-ui/Paper'
+import style from './chat.less'
 
 import UserList from '../../components/UserList'
 
 class Chat extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+  render () {
     return (
       <div className={style.container}>
         <div className={style.left}>
@@ -37,6 +33,6 @@ export default connect(
   state => ({
     chatContent: state.chatContent,
     userList: state.userList
-  },
-  {othersLogin})
+  }),
+  {othersLogin}
 )(Chat)
