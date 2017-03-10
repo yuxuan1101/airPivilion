@@ -13,8 +13,10 @@ export default class RightNav extends React.Component {
     return (
       <IconMenu
         iconButtonElement={
-                    <IconButton><FontIcon className="material-icons" color="#FFF">more_vert</FontIcon></IconButton>
-                }
+          <IconButton>
+            <FontIcon className="material-icons" color="#FFF">more_vert</FontIcon>
+          </IconButton>
+        }
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
       >
