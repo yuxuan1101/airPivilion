@@ -4,7 +4,7 @@ import NavLink from './NavLink'
 import './stylesheets/nav.css'
 import ocImage from '../../images/OutScence.jpg'
 
-export default React.createClass({
+export default class App extends React.Component {
   render () {
     console.log(ocImage)
     let style = {
@@ -36,4 +36,4 @@ export default React.createClass({
         </div>
     )
   }
-})
+}

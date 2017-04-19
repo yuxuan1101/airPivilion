@@ -4,6 +4,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import FontIcon from 'material-ui/FontIcon'
@@ -68,7 +69,7 @@ class Header extends React.Component {
   }
 }
 Header.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
 function mapStateToProps (state) {
   return {

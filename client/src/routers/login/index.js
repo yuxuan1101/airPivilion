@@ -4,6 +4,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -173,8 +174,20 @@ class Login extends React.Component {
   }
 }
 Login.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
-export default connect(null,
-  { login, push }
-)(Login)
+export default connect(state => {
+  let errMsg = {}
+  switch (state.login.errMsg) {
+    case '此用户不存在':
+    case '用户已存在':
+      errMsg = {name: state.login.errMsg}
+      break
+    case '密码错误':
+      errMsg = {pass: state.login.errMsg}
+  }
+  return {
+    errMsg,
+    isfetching: this.state.auth.isfetching
+  }
+}, { login, push })(Login)

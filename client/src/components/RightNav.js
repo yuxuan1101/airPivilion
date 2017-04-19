@@ -2,6 +2,7 @@
  * Created by yuxuan on 8/23/16.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -36,5 +37,5 @@ export default class RightNav extends React.Component {
   }
 }
 RightNav.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
