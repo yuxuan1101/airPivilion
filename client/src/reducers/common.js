@@ -30,21 +30,21 @@ export function user (state = {uname: '游客', signed: false}, action) {
   }
 }
 export function auth (state = {
-  isfeting: false,
+  isfetching: false,
   didInvalidate: false
 }, action) {
   switch (action.type) {
     case FETCH_AUTH_REQUEST:
-      return Object.assign({}, state, {isfeting: true})
+      return Object.assign({}, state, {isfetching: true})
     case FETCH_AUTH_SUCCESS:
       return Object.assign({}, state, {
-        isfeting: false,
+        isfetching: false,
         didInvalidate: false,
         token: action.token,
         lastUpdated: action.receiveTime
       })
     case FETCH_AUTH_FAILURE:
-      return Object.assign({}, state, {isfeting: false})
+      return Object.assign({}, state, {isfetching: false})
     default:
       return state
   }

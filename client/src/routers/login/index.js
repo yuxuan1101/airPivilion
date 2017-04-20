@@ -11,8 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
-
-import {login} from '../../actions/actions'
+import {fetchAuth} from '../../actions/actions'
 
 class Login extends React.Component {
   constructor (props) {
@@ -82,46 +81,7 @@ class Login extends React.Component {
   };
 
   login = () => {
-    const instance = this
-    fetch('/auth', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue()
-    }).then(function (res) {
-      if (res.ok) return res.json()
-    }).then(function (data) {
-      if (data.error) {
-        throw new Error(data.errMsg)
-      } else {
-        instance.props.login(data)
-        let {state} = instance.props.location
-        instance.context.router.push(state ? state.nextUrl : '/')
-      }
-    }).catch(function (e) {
-      switch (e.message) {
-        case '此用户不存在':
-          instance.setState({
-            open: false,
-            registerLoading: false,
-            errMsg: {name: '此用户不存在。'}
-          })
-          setTimeout(() => instance.refs.username.focus(), 500)
-          break
-        case '密码错误':
-          instance.setState({
-            open: false,
-            registerLoading: false,
-            errMsg: {pass: '密码错误。'}
-          })
-          setTimeout(() => instance.refs.password.focus(), 500)
-          break
-        default:
-          console.log('unknow error!', e)
-      }
-    })
+    this.props.fetchAuth('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue())
   };
   render () {
     return (
@@ -138,7 +98,7 @@ class Login extends React.Component {
             ref="username"
             onChange={() => { if (this.state.errMsg.name) this.setState({errMsg: {name: undefined}}) }}
             hintText="Username Field"
-            errorText={this.state.errMsg.name}
+            errorText={this.props.errMsg.name}
             floatingLabelText="Username"
             style={{width: '100%'}}
           />
@@ -148,7 +108,7 @@ class Login extends React.Component {
             ref="password"
             onChange={() => { if (this.state.errMsg.pass) this.setState({errMsg: {pass: undefined}}) }}
             hintText="Password Field"
-            errorText={this.state.errMsg.pass}
+            errorText={this.props.errMsg.pass}
             floatingLabelText="Password"
             type="password"
             style={{width: '100%'}}
@@ -165,7 +125,15 @@ class Login extends React.Component {
           open={this.state.open}
           message={this.state.registerLoading ? '注册信息加载中...' : '注册成功'}
           autoHideDuration={0}
-          action={this.state.registerLoading ? <CircularProgress style={{bottom: '5px'}}size={0.5}/> : '直接登陆'}
+          action={this.state.registerLoading ? <CircularProgress size={35}/> : '直接登陆'}
+          onActionTouchTap={this.login}
+          onRequestClose={this.snackbarClose}
+        />
+        <Snackbar
+          open={this.props.authIsfetching}
+          message={'验证中...'}
+          autoHideDuration={0}
+          action={<CircularProgress size={35}/>}
           onActionTouchTap={this.login}
           onRequestClose={this.snackbarClose}
         />
@@ -178,6 +146,7 @@ Login.contextTypes = {
 }
 export default connect(state => {
   let errMsg = {}
+  console.log(state)
   switch (state.login.errMsg) {
     case '此用户不存在':
     case '用户已存在':
@@ -188,6 +157,6 @@ export default connect(state => {
   }
   return {
     errMsg,
-    isfetching: this.state.auth.isfetching
+    authIsfetching: state.auth.isfetching
   }
-}, { login, push })(Login)
+}, { fetchAuth, push })(Login)

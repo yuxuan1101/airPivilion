@@ -69,7 +69,7 @@ export function fetchAuth (subUser) {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: 'username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue()
+      body: subUser
     }).then(res => {
       if (res.ok) return res.json()
     }).then(data => {
