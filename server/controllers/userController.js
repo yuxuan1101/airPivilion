@@ -12,7 +12,7 @@ module.exports = {
       delete user.password
       ctx.body = {'user': user}
     } else {
-      ctx.body = {error: true, errMsg: '用户已存在'}
+      ctx.body = {error: true, errMsg: '此名称已被注册'}
     }
   }
 }

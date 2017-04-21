@@ -1,5 +1,5 @@
 // import socket from './socket'
-
+import history from '../history'
 export const SEND_CHATMESSAGE = 'SEND_CHATMESSAGE'
 export const SEND_SYSTEMMESSAGE = 'SEND_SYSTEMMESSAGE'
 export const LOGIN = 'LOGIN'
@@ -9,6 +9,9 @@ export const LOGIN_SUB = 'LOGIN_SUB'
 export const FETCH_AUTH_REQUEST = 'FETCH_AUTH_REQUEST'
 export const FETCH_AUTH_SUCCESS = 'FETCH_AUTH_SUCCESS'
 export const FETCH_AUTH_FAILURE = 'FETCH_AUTH_FAILURE'
+export const POST_USER_REQUEST = 'POST_USER_REQUEST'
+export const POST_USER_SCCESS = 'POST_USER_SCCESS'
+export const POST_USER_FAILURE = 'POST_USER_FAILURE'
 
 export function sendChatMessage (from, to, text) {
   return {
@@ -38,10 +41,9 @@ export function loginSub (subUser) {
     subUser
   }
 }
-export function authRequest (obj) {
+export function authRequest () {
   return {
-    type: FETCH_AUTH_REQUEST,
-    obj
+    type: FETCH_AUTH_REQUEST
   }
 }
 export function fetchAuthSuccess (obj) {
@@ -60,9 +62,9 @@ export function fetchAuthFailure (error) {
     errMsg: error.message
   }
 }
-export function fetchAuth (subUser) {
+export function fetchAuth (subUser, nextUrl) {
   return function (dispatch) {
-    dispatch(authRequest(subUser))
+    dispatch(authRequest())
     return fetch('/auth', {
       method: 'POST',
       headers: {
@@ -70,15 +72,57 @@ export function fetchAuth (subUser) {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: subUser
-    }).then(res => {
+    })
+    // .then(res => new Promise(resolve => setTimeout(resolve, 3000, res)))
+    .then(res => {
       if (res.ok) return res.json()
     }).then(data => {
       if (data.error) {
         throw new Error(data.errMsg)
       } else {
         dispatch(fetchAuthSuccess(data))
+        history.push(nextUrl)
       }
     }).catch(error => dispatch(fetchAuthFailure(error)))
+  }
+}
+export function postUserRequest () {
+  return {
+    type: POST_USER_REQUEST
+  }
+}
+export function postUserSuccess (user) {
+  return {
+    type: POST_USER_SCCESS
+  }
+}
+export function postUserFailure (error) {
+  return {
+    type: POST_USER_FAILURE,
+    errMsg: error.message
+  }
+}
+export function postUser (subUser) {
+  return function (dispatch) {
+    dispatch(postUserRequest())
+    return fetch('/user', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: subUser
+    }).then(function (res) {
+      if (res.ok) return res.json()
+    }).then(function (data) {
+      if (data.error) {
+        throw new Error(data.errMsg)
+      } else {
+        dispatch(postUserSuccess(data))
+      }
+    }).catch(function (error) {
+      dispatch(postUserFailure(error))
+    })
   }
 }
 

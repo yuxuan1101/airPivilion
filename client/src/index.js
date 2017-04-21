@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, IndexRoute } from 'react-router'
+import history from './history'
 import { Provider } from 'react-redux'
-import { syncHistoryWithStore } from 'react-router-redux'
 import store from './store/configureStore'
 import Root from './routers/Root'
 import Home from './components/router/Home'
@@ -20,8 +20,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
-
-const history = syncHistoryWithStore(browserHistory, store)
 
 render((
     <Provider store={store}>

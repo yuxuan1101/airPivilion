@@ -5,13 +5,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { push } from 'react-router-redux'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
-import {fetchAuth} from '../../actions/actions'
+import {fetchAuth, postUser} from '../../actions/actions'
 
 class Login extends React.Component {
   constructor (props) {
@@ -21,10 +20,7 @@ class Login extends React.Component {
       close: '.˚‧º·(´ ฅωฅ ‘)·º·˚.'
     }
     this.state = {
-      topFace: 'open',
-      open: false,
-      registerLoading: false,
-      errMsg: {}
+      topFace: 'open'
     }
     this.style = {
       button: {
@@ -32,57 +28,22 @@ class Login extends React.Component {
       }
     }
   }
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.errMsg.pass) {
+      setTimeout(() => this.refs.password.select(), 500)
+    } else if (nextProps.errMsg.name) {
+      setTimeout(() => this.refs.username.select(), 500)
+    }
+  }
   componentDidMount () {
-    setTimeout(() => this.refs.username.focus(), 500)
-  };
-  snackbarClose = () => {
-    this.setState({
-      open: true
-    })
-  };
+    this.refs.username.focus()
+  }
   registerTouch = () => {
-    const instance = this
-    fetch('/user', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue()
-    }).then(function (res) {
-      if (res.ok) return res.json()
-    }).then(function (data) {
-      if (data.error) {
-        throw new Error(data.errMsg)
-      } else {
-        // let user = data.user
-        instance.setState({
-          registerLoading: false
-        })
-      }
-    }).catch(function (e) {
-      switch (e.message) {
-        case '用户已存在':
-          instance.setState({
-            open: false,
-            registerLoading: false,
-            errMsg: {name: '此名称已存在。'}
-          })
-          setTimeout(() => instance.refs.username.focus(), 500)
-          break
-        default:
-          console.log('unknow error!', e)
-      }
-    })
-    this.setState({
-      registerLoading: true,
-      open: true
-    })
-  };
-
+    this.props.postUser('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue())
+  }
   login = () => {
-    this.props.fetchAuth('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue())
-  };
+    this.props.fetchAuth('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue(), this.props.nextUrl)
+  }
   render () {
     return (
       <Paper zDepth={1} rounded={false} style={{
@@ -96,7 +57,6 @@ class Login extends React.Component {
         <div>
           <TextField
             ref="username"
-            onChange={() => { if (this.state.errMsg.name) this.setState({errMsg: {name: undefined}}) }}
             hintText="Username Field"
             errorText={this.props.errMsg.name}
             floatingLabelText="Username"
@@ -106,7 +66,6 @@ class Login extends React.Component {
         <div>
           <TextField
             ref="password"
-            onChange={() => { if (this.state.errMsg.pass) this.setState({errMsg: {pass: undefined}}) }}
             hintText="Password Field"
             errorText={this.props.errMsg.pass}
             floatingLabelText="Password"
@@ -122,20 +81,10 @@ class Login extends React.Component {
         <RaisedButton label="注册" secondary={true} fullWidth={true}
                       style={this.style.button} onTouchTap={this.registerTouch}/>
         <Snackbar
-          open={this.state.open}
-          message={this.state.registerLoading ? '注册信息加载中...' : '注册成功'}
-          autoHideDuration={0}
-          action={this.state.registerLoading ? <CircularProgress size={35}/> : '直接登陆'}
-          onActionTouchTap={this.login}
-          onRequestClose={this.snackbarClose}
-        />
-        <Snackbar
-          open={this.props.authIsfetching}
-          message={'验证中...'}
-          autoHideDuration={0}
+          open={this.props.authFetcing || this.props.userPosting}
+          message={this.props.authFetcing ? '登录信息验证中...' : '用户信息提交中...'}
           action={<CircularProgress size={35}/>}
           onActionTouchTap={this.login}
-          onRequestClose={this.snackbarClose}
         />
       </Paper>
     )
@@ -146,17 +95,23 @@ Login.contextTypes = {
 }
 export default connect(state => {
   let errMsg = {}
-  console.log(state)
   switch (state.login.errMsg) {
     case '此用户不存在':
-    case '用户已存在':
+    case '此名称已被注册':
       errMsg = {name: state.login.errMsg}
       break
     case '密码错误':
       errMsg = {pass: state.login.errMsg}
+      break
+    case undefined:
+      break
+    default:
+      console.log(state.login.errMsg)
   }
   return {
+    nextUrl: state.routing.locationBeforeTransitions.state ? state.routing.locationBeforeTransitions.state.nextUrl : '/',
     errMsg,
-    authIsfetching: state.auth.isfetching
+    authFetcing: state.auth.isfetching,
+    userPosting: state.login.userPosting
   }
-}, { fetchAuth, push })(Login)
+}, { fetchAuth, postUser })(Login)
