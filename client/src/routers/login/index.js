@@ -36,10 +36,10 @@ class Login extends React.Component {
     }
   }
   componentDidMount () {
-    this.refs.username.focus()
+    setTimeout(() => this.refs.username.focus(), 500)
   }
   registerTouch = () => {
-    this.props.postUser('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue())
+    this.props.postUser('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue(), this.props.nextUrl)
   }
   login = () => {
     this.props.fetchAuth('username=' + this.refs.username.getValue() + '&password=' + this.refs.password.getValue(), this.props.nextUrl)

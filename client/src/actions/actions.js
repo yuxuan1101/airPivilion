@@ -102,7 +102,7 @@ export function postUserFailure (error) {
     errMsg: error.message
   }
 }
-export function postUser (subUser) {
+export function postUser (subUser, nextUrl) {
   return function (dispatch) {
     dispatch(postUserRequest())
     return fetch('/user', {
@@ -112,13 +112,17 @@ export function postUser (subUser) {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: subUser
-    }).then(function (res) {
+    })
+    // .then(res => new Promise(resolve => setTimeout(resolve, 3000, res)))
+    .then(function (res) {
       if (res.ok) return res.json()
     }).then(function (data) {
       if (data.error) {
         throw new Error(data.errMsg)
       } else {
         dispatch(postUserSuccess(data))
+        dispatch(fetchAuthSuccess(data))
+        history.push(nextUrl)
       }
     }).catch(function (error) {
       dispatch(postUserFailure(error))

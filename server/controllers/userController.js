@@ -8,9 +8,7 @@ module.exports = {
     let result = await User.findOne({username: user.username}).exec()
     if (!result) {
       user = await user.save()
-      user = user.toJSON()
-      delete user.password
-      ctx.body = {'user': user}
+      await next()
     } else {
       ctx.body = {error: true, errMsg: '此名称已被注册'}
     }
