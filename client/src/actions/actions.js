@@ -120,7 +120,7 @@ export function postUser (subUser, nextUrl) {
       if (data.error) {
         throw new Error(data.errMsg)
       } else {
-        dispatch(postUserSuccess(data))
+        dispatch(postUserSuccess())
         dispatch(fetchAuthSuccess(data))
         history.push(nextUrl)
       }
