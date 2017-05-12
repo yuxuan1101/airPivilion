@@ -34,7 +34,7 @@ app.use(async(ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
   console.log(ctx.status)
-  if (ctx.status === 404 && !ctx.path.match(/\./)) {
+  if (ctx.status === 404 && ctx.path.match(/\./)) {
     console.log('send html. -' + ctx.path)
     ctx.type = 'html'
     ctx.body = require('fs').createReadStream(path.join(__dirname, '../client/dist/index.html'))

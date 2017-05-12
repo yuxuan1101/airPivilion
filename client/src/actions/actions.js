@@ -102,6 +102,9 @@ export function postUserFailure (error) {
     errMsg: error.message
   }
 }
+export function getAvatar (id) {
+  return function (dispatch) {}
+}
 export function postUser (subUser, nextUrl) {
   return function (dispatch) {
     dispatch(postUserRequest())
