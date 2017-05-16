@@ -41,7 +41,7 @@ class Header extends React.Component {
           </div>
           <Tabs style={{flex: '1 1 auto'}}
                 inkBarStyle={{backgroundColor: blue500}}
-                value={'/' + this.props.pathname.split('/')[1]}
+                value={'/' + window.location.pathname.split('/')[1]}
                 onChange={(value) => this.context.router.push(value)}
           >
             <Tab
@@ -70,8 +70,8 @@ Header.contextTypes = {
 }
 function mapStateToProps (state) {
   return {
-    user: state.user,
-    pathname: state.routing.locationBeforeTransitions.pathname
+    user: state.user
+    // pathname: state.routing.locationBeforeTransitions.pathname
   }
 }
 export default connect(mapStateToProps)(Header)

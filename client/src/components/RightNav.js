@@ -27,12 +27,12 @@ class RightNav extends React.Component {
                   onTouchTap={() => window.open('https://github.com/yuxuan1101/airPivilion', '_blank')}/>
         <Divider />
         <MenuItem primaryText={this.props.signed ? 'Log out' : 'Log in'} leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
-                  onTouchTap={() => this.props.logout(this.props.pathname)}/>
+                  onTouchTap={() => this.props.logout(window.location.pathname)}/>
       </IconMenu>
     )
   }
 }
 export default connect(state => Object.assign({}, {
-  signed: state.user.signed,
-  pathname: state.routing.locationBeforeTransitions.pathname
+  signed: state.user.signed
+  // pathname: state.routing.locationBeforeTransitions.pathname
 }), {logout})(RightNav)
