@@ -36,8 +36,8 @@ class Header extends React.Component {
             paddingLeft: '10px',
             flex: '1 1 auto'
           }}>
-            <span style={{display: 'block', fontWeight: '100'}}>@{this.props.user.uname}</span>
-            <span style={{display: 'block', fontWeight: 'bolder', fontSize: 'larger'}}>{this.props.user.uname}</span>
+            <span style={{display: 'block', fontWeight: '100'}}>@{this.props.user.username}</span>
+            <span style={{display: 'block', fontWeight: 'bolder', fontSize: 'larger'}}>{this.props.user.username}</span>
           </div>
           <Tabs style={{flex: '1 1 auto'}}
                 inkBarStyle={{backgroundColor: blue500}}
