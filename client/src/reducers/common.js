@@ -14,11 +14,9 @@ export function user (state = {uname: '游客', signed: false}, action) {
     case LOGOUT:
       return {uname: '游客', signed: false}
     case FETCH_AUTH_SUCCESS:
-      return Object.assign({}, state, {
+      return Object.assign({}, state, action.user, {
         signed: true,
-        uname: action.uname,
-        id: action.id,
-        avatar: action.avatar
+        id: action.user._id
       })
     default:
       return state

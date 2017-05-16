@@ -25,7 +25,7 @@ class Header extends React.Component {
         />
         <div style={{display: 'inline-flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '100%'}}>
           <div>
-            <Avatar src={'http://127.0.0.1:3000/avatar?avatar=' + this.props.user.id} size={80} style={{margin: '0 0 0 80px'}}/>
+            <Avatar src={'http://127.0.0.1:3000/avatar?avatar=' + this.props.user.avatar} size={80} style={{margin: '0 0 0 80px'}}/>
           </div>
           <div style={{
             display: 'inline-flex',

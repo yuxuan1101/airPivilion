@@ -11,13 +11,9 @@ module.exports = {
         ctx.body = user
         return
       }
-
       const token = user.generateToken()
-      console.log(token)
       const response = user.toJSON()
-
       delete response.password
-
       ctx.body = {
         token,
         user: response

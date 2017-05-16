@@ -22,12 +22,11 @@ export function authRequest () {
     type: FETCH_AUTH_REQUEST
   }
 }
-export function fetchAuthSuccess (obj) {
+export function fetchAuthSuccess (res) {
   return {
     type: FETCH_AUTH_SUCCESS,
-    token: obj.token,
-    uname: obj.user.username,
-    id: obj.user._id,
+    token: res.token,
+    user: res.user,
     receiveTime: Date.now()
 
   }
