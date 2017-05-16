@@ -2,14 +2,15 @@
  * Created by yuxuan on 8/23/16.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import FontIcon from 'material-ui/FontIcon'
+import {logout} from '../actions/actions'
 
-export default class RightNav extends React.Component {
+class RightNav extends React.Component {
   render () {
     return (
       <IconMenu
@@ -26,16 +27,11 @@ export default class RightNav extends React.Component {
                   onTouchTap={() => window.open('https://github.com/yuxuan1101/airPivilion', '_blank')}/>
         <Divider />
         <MenuItem primaryText={this.props.signed ? 'Log out' : 'Log in'} leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
-                  onTouchTap={() =>
-                    this.context.router.push({
-                      pathname: '/login',
-                      state: {nextUrl: this.props.location.pathname}
-                    })
-                  }/>
+                  onTouchTap={() => this.props.logout(this.props.pathname)}/>
       </IconMenu>
     )
   }
 }
-RightNav.contextTypes = {
-  router: PropTypes.object.isRequired
-}
+export default connect(state => Object.assign({}, state.user, {
+  pathname: state.routing.locationBeforeTransitions.pathname}
+  ), {logout})(RightNav)

@@ -1,44 +1,20 @@
 // import socket from './socket'
 import history from '../history'
-export const SEND_CHATMESSAGE = 'SEND_CHATMESSAGE'
-export const SEND_SYSTEMMESSAGE = 'SEND_SYSTEMMESSAGE'
-export const LOGIN = 'LOGIN'
-export const CHANGE_TO = 'CHANGE_TO'
-export const OTHERS_LOGOUT = 'OTHERS_LOGOUT'
-export const LOGIN_SUB = 'LOGIN_SUB'
 export const FETCH_AUTH_REQUEST = 'FETCH_AUTH_REQUEST'
 export const FETCH_AUTH_SUCCESS = 'FETCH_AUTH_SUCCESS'
 export const FETCH_AUTH_FAILURE = 'FETCH_AUTH_FAILURE'
 export const POST_USER_REQUEST = 'POST_USER_REQUEST'
 export const POST_USER_SCCESS = 'POST_USER_SCCESS'
 export const POST_USER_FAILURE = 'POST_USER_FAILURE'
+export const LOGOUT = 'LOGOUT'
 
-export function sendChatMessage (from, to, text) {
+export function logout (thisUrl) {
+  history.push({
+    pathname: '/login',
+    state: {nextUrl: thisUrl}
+  })
   return {
-    type: SEND_CHATMESSAGE,
-    from: from,
-    to: to,
-    text: text
-  }
-}
-export function sendSystemMessage (text) {
-  return {
-    type: SEND_SYSTEMMESSAGE,
-    text: text
-  }
-}
-export function login (obj) {
-  return {
-    type: LOGIN,
-    token: obj.token,
-    uname: obj.user.username,
-    id: obj.user._id
-  }
-}
-export function loginSub (subUser) {
-  return {
-    type: LOGIN_SUB,
-    subUser
+    type: LOGOUT
   }
 }
 export function authRequest () {
@@ -102,9 +78,6 @@ export function postUserFailure (error) {
     errMsg: error.message
   }
 }
-export function getAvatar (id) {
-  return function (dispatch) {}
-}
 export function postUser (subUser, nextUrl) {
   return function (dispatch) {
     dispatch(postUserRequest())
@@ -125,24 +98,11 @@ export function postUser (subUser, nextUrl) {
       } else {
         dispatch(postUserSuccess())
         dispatch(fetchAuthSuccess(data))
+        if (nextUrl === '/login') nextUrl = '/'
         history.push(nextUrl)
       }
     }).catch(function (error) {
       dispatch(postUserFailure(error))
     })
-  }
-}
-
-export function changeTo (to) {
-  return {
-    type: CHANGE_TO,
-    to: to
-  }
-}
-export function othersLogout (obj) {
-  return {
-    type: OTHERS_LOGOUT,
-    name: obj.name,
-    users: obj.users
   }
 }

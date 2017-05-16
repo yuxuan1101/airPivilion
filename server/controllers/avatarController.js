@@ -9,6 +9,7 @@ module.exports = {
     // let userId = ctx.body
     // let user = await User.findOne({_id: userId}).exec()
     // let avatar = 'default-01.jpg'
+    console.log(ctx.query)
     let avatarDir = path.join(__dirname, '../static/avatar')
     await send(ctx, 'default-1.jpg', {root: avatarDir})
   }

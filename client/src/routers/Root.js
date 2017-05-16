@@ -38,7 +38,7 @@ export default class Root extends React.Component {
           display: 'flex',
           flexFlow: 'column nowrap'
         }}>
-          <Header location={this.props.location}/>
+          <Header />
           <div style={{
             backgroundColor: '#fff',
             flex: 'auto',
