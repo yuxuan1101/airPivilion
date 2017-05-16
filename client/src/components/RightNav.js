@@ -32,6 +32,7 @@ class RightNav extends React.Component {
     )
   }
 }
-export default connect(state => Object.assign({}, state.user, {
-  pathname: state.routing.locationBeforeTransitions.pathname}
-  ), {logout})(RightNav)
+export default connect(state => Object.assign({}, {
+  signed: state.user.signed,
+  pathname: state.routing.locationBeforeTransitions.pathname
+}), {logout})(RightNav)
