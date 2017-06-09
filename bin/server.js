@@ -30,6 +30,10 @@ var server = new WebpackDevServer(compiler, {
         "/auth*": {
             target: 'http://localhost:3000',
             secure: false
+        },
+        "/avatar*": {
+            target: 'http://localhost:3000',
+            secure: false
         }
     }
 });

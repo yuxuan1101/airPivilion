@@ -2,14 +2,12 @@
  * Created by yuxuan on 9/12/16.
  */
 import React from 'react'
-import { connect } from 'react-redux'
-import {othersLogin} from '../../actions/socketOn'
 import Paper from 'material-ui/Paper'
 import style from './chat.less'
 
 import UserList from '../../components/UserList'
 
-class Chat extends React.Component {
+export default class Chat extends React.Component {
   render () {
     return (
       <div className={style.container}>
@@ -21,18 +19,10 @@ class Chat extends React.Component {
             flex: 'auto',
             margin: '5px'
           }}>
-            <UserList userlist={this.props.userList}
-                      othersLogin={this.props.othersLogin}/>
+            <UserList />
           </Paper>
         </div>
       </div>
     )
   }
 }
-export default connect(
-  state => ({
-    chatContent: state.chatContent,
-    userList: state.userList
-  }),
-  {othersLogin}
-)(Chat)
