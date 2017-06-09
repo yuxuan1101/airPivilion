@@ -11,6 +11,8 @@ import Repos from './components/router/Repos'
 import Repo from './components/router/Repo'
 import Login from './routers/login'
 import Chat from './routers/chat'
+import socket from './actions/socket'
+import {socketConnect} from './actions/socketOn'
 
 import './stylesheets/index.less'
 import './stylesheets/font/icons.css'
@@ -20,6 +22,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
+
+socket.on('connect', (clientId) => {
+  store.dispatch(socketConnect(socket.id))
+  console.log(store.getState().user)
+})
 
 render((
     <Provider store={store}>

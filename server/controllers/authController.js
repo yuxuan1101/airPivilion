@@ -13,6 +13,8 @@ module.exports = {
       }
       const token = user.generateToken()
       const response = user.toJSON()
+      response.id = response._id
+      delete response._id
       delete response.password
       ctx.body = {
         token,

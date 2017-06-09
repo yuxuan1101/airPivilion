@@ -2,6 +2,7 @@
  * Created by yuxuan on 8/31/16.
  */
 import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE} from '../actions/actions'
+import {SOCKET_CONNECT} from '../actions/socketOn'
 // username
 // id ?
 // password ?
@@ -18,6 +19,8 @@ export function user (state = {username: '游客', signed: false}, action) {
         signed: true,
         id: action.user._id
       })
+    case SOCKET_CONNECT:
+      return Object.assign({}, state, {socketId: action.socketId})
     default:
       return state
   }

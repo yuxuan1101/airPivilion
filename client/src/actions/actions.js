@@ -1,5 +1,6 @@
 // import socket from './socket'
 import history from '../history'
+import socket from './socket'
 export const FETCH_AUTH_REQUEST = 'FETCH_AUTH_REQUEST'
 export const FETCH_AUTH_SUCCESS = 'FETCH_AUTH_SUCCESS'
 export const FETCH_AUTH_FAILURE = 'FETCH_AUTH_FAILURE'
@@ -23,6 +24,7 @@ export function authRequest () {
   }
 }
 export function fetchAuthSuccess (res) {
+  socket.emit('login', res.user.id)
   return {
     type: FETCH_AUTH_SUCCESS,
     token: res.token,
