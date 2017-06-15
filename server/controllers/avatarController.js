@@ -5,9 +5,11 @@
 const send = require('koa-send')
 const path = require('path')
 module.exports = {
-  getAvatar: async function authUser (ctx, next) {
+  getAvatar: async function getAvatar (ctx, next) {
     console.log(ctx.query.avatar)
-    let avatar = ctx.query.avatar
+    console.log(ctx.isAuthenticated())
+    console.log(ctx.state.user)
+    let avatar = ctx.query.avatar ? ctx.query.avatar : 'default-1.jpg'
     let avatarDir = path.join(__dirname, '../static/avatar')
     await send(ctx, avatar, {root: avatarDir})
     if (ctx.status === 404) await send(ctx, 'default-1.jpg', {root: avatarDir})
