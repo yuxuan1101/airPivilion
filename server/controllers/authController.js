@@ -6,9 +6,14 @@ const passport = require('koa-passport')
 
 module.exports = {
   authUser: async function authUser (ctx, next) {
-    return passport.authenticate('local', (user) => {
-      if (user.error) {
-        ctx.body = user
+    return passport.authenticate('local', (err, user, info, status) => {
+      if (err) {
+        console.log(err)
+        ctx.body = {error: true, errMsg: err}
+        return
+      }
+      if (info) {
+        ctx.body = {error: true, errMsg: info}
         return
       }
       const token = user.generateToken()
@@ -20,6 +25,7 @@ module.exports = {
         token,
         user: response
       }
+      return ctx.login(user.id)
     })(ctx, next)
   }
 }
