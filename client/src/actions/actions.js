@@ -13,6 +13,7 @@ export const GET_USER_FAILURE = 'GET_USER_FAILURE'
 export const LOGOUT = 'LOGOUT'
 
 export function logout (thisUrl) {
+  window.localStorage.removeItem('token')
   history.push({
     pathname: '/login',
     state: {nextUrl: thisUrl}

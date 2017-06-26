@@ -28,7 +28,7 @@ socket.on('connect', (clientId) => {
   console.log(store.getState().user)
 })
 let token = window.localStorage.getItem('token')
-store.dispatch(getUser(token))
+if (token) store.dispatch(getUser(token))
 
 render((
     <Provider store={store}>
