@@ -12,5 +12,15 @@ module.exports = {
     } else {
       ctx.body = {error: true, errMsg: '此名称已被注册'}
     }
+  },
+  getUser: async (ctx, next) => {
+    const id = ctx.state.id
+    try {
+      const user = await User.findById(id, '-password -_id')
+      const response = user.toJSON()
+      ctx.body = response
+    } catch (err) {
+      ctx.body = {error: true, errMsg: err}
+    }
   }
 }

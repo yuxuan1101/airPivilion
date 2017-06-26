@@ -3,7 +3,8 @@
  */
 // const User = require('../models/user')
 const passport = require('koa-passport')
-
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
 module.exports = {
   authUser: async function authUser (ctx, next) {
     return passport.authenticate('local', (err, user, info, status) => {
@@ -28,9 +29,15 @@ module.exports = {
       }
     })(ctx, next)
   },
-  getAuth: async function getAuth (ctx, next) {
+  isAuthenticated: async function getAuth (ctx, next) {
     console.log('into getAuth')
-    console.log(ctx.header.authorization)
-    await next()
+    const token = ctx.header.authorization
+    try {
+      const userMessage = jwt.verify(token, config.token)
+      ctx.state.id = userMessage.id
+      await next()
+    } catch (e) {
+      ctx.status = 401
+    }
   }
 }
