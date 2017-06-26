@@ -16,6 +16,7 @@ var server = new WebpackDevServer(compiler, {
     inline: true,
     lazy: false,
     historyApiFallback: true,
+    disableHostCheck: true,
     // headers: {
     //     "Access-Control-Allow-Origin": "*"
     // },

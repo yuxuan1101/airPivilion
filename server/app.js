@@ -6,7 +6,6 @@ const convert = require('koa-convert')
 const json = require('koa-json')
 // const onerror = require('koa-onerror')
 const logger = require('koa-logger')
-const session = require('koa-session2')
 const passport = require('koa-passport')
 const bodyparser = require('koa-bodyparser')
 const path = require('path')
@@ -20,9 +19,6 @@ mongoose.connect(config.database)
 app.use(bodyparser())
 app.use(convert(json()))
 app.use(convert(logger()))
-app.use(session({
-  key: 'my_session_key'
-}))
 app.use(convert(require('koa-static')(path.join(__dirname, '../client/dist'))))
 
 require('./config/passport')

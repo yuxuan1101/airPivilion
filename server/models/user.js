@@ -2,9 +2,9 @@
  * Created by yuxuan on 9/2/16.
  */
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const config = require('../config/config');
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
 
 const User = new mongoose.Schema({
   type: { type: String, default: 'User' },
@@ -12,9 +12,9 @@ const User = new mongoose.Schema({
   password: { type: String, required: true }
 })
 
-User.pre('save',function (next) {
-  console.log("resolve user save");
-  const user = this;
+User.pre('save', function (next) {
+  console.log('resolve user save')
+  const user = this
   new Promise((resolve, reject) => {
     bcrypt.genSalt(10, (err, salt) => {
       if (err) { return reject(err) }
@@ -44,7 +44,7 @@ User.methods.validatePassword = function validatePassword (password) {
 User.methods.generateToken = function generateToken () {
   const user = this
 
-  return jwt.sign({ id: user.id }, config.token);
+  return jwt.sign({ id: user.id }, config.token)
 }
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', User)

@@ -9,10 +9,12 @@ const auth = require('../controllers/authController')
 
 const router = new Router()
 
-router.get('/', async (ctx, next) => {
+router.get('/', auth.getAuth, async (ctx, next) => {
   console.log('into user')
   // send(ctx, 'index.html');
-  ctx.body = {'user': '11111'}
+  ctx.body = {
+    username: '111'
+  }
 })
 
 router.post('/', user.createUser, auth.authUser)

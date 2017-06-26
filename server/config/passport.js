@@ -2,15 +2,11 @@ import passport from 'koa-passport'
 import User from '../models/user'
 import LocalStrategy from 'passport-local'
 
-passport.serializeUser((userId, done) => {
-  console.log('passport.serializeUser')
-  console.log(userId)
-  done(null, userId)
-  console.log(done)
+passport.serializeUser((user, done) => {
+  done(null, user.id)
 })
 
 passport.deserializeUser(async (id, done) => {
-  console.log('deserializeUser')
   try {
     const user = await User.findById(id, '-password')
     done(null, user)

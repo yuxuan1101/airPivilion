@@ -13,7 +13,7 @@ import Login from './routers/login'
 import Chat from './routers/chat'
 import socket from './actions/socket'
 import {socketConnect} from './actions/socketOn'
-
+import {getUser} from './actions/actions'
 import './stylesheets/index.less'
 import './stylesheets/font/icons.css'
 
@@ -27,6 +27,8 @@ socket.on('connect', (clientId) => {
   store.dispatch(socketConnect(socket.id))
   console.log(store.getState().user)
 })
+let token = window.localStorage.getItem('token')
+store.dispatch(getUser(token))
 
 render((
     <Provider store={store}>

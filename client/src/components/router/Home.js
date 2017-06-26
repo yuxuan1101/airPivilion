@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 
 class Home extends React.Component {
   render () {
-    return <div>Home</div>
+    return <div>Home: {this.props.user.username}</div>
   }
 }
 function mapStateToProps (state) {
   console.log(state)
-  return state
+  return {user: state.user}
 }
 export default connect(mapStateToProps)(Home)

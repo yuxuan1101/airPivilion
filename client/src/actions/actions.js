@@ -7,6 +7,9 @@ export const FETCH_AUTH_FAILURE = 'FETCH_AUTH_FAILURE'
 export const POST_USER_REQUEST = 'POST_USER_REQUEST'
 export const POST_USER_SCCESS = 'POST_USER_SCCESS'
 export const POST_USER_FAILURE = 'POST_USER_FAILURE'
+export const GET_USER_REQUEST = 'GET_USER_REQUEST'
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
+export const GET_USER_FAILURE = 'GET_USER_FAILURE'
 export const LOGOUT = 'LOGOUT'
 
 export function logout (thisUrl) {
@@ -25,12 +28,12 @@ export function authRequest () {
 }
 export function fetchAuthSuccess (res) {
   socket.emit('login', res.user.id)
+  window.localStorage.setItem('token', res.token)
   return {
     type: FETCH_AUTH_SUCCESS,
     token: res.token,
     user: res.user,
     receiveTime: Date.now()
-
   }
 }
 export function fetchAuthFailure (error) {
@@ -104,6 +107,42 @@ export function postUser (subUser, nextUrl) {
       }
     }).catch(function (error) {
       dispatch(postUserFailure(error))
+    })
+  }
+}
+export function getUserRequest () {
+  return {
+    type: GET_USER_REQUEST
+  }
+}
+export function getUserFailure (error) {
+  return {
+    type: GET_USER_FAILURE,
+    errMsg: error.message
+  }
+}
+export function getUser (token) {
+  return function (dispatch) {
+    dispatch(getUserRequest())
+    return fetch('/user', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: token
+      }
+    })
+    // .then(res => new Promise(resolve => setTimeout(resolve, 3000, res)))
+    .then(function (res) {
+      if (res.ok) return res.json()
+    }).then(function (data) {
+      if (data.error) {
+        throw new Error(data.errMsg)
+      } else {
+        dispatch(fetchAuthSuccess({user: data, token: token}))
+      }
+    }).catch(function (error) {
+      dispatch(getUserFailure(error))
     })
   }
 }

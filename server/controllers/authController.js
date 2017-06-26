@@ -16,6 +16,7 @@ module.exports = {
         ctx.body = {error: true, errMsg: info}
         return
       }
+      console.log(ctx.request.ip)
       const token = user.generateToken()
       const response = user.toJSON()
       response.id = response._id
@@ -25,7 +26,11 @@ module.exports = {
         token,
         user: response
       }
-      return ctx.login(user.id)
     })(ctx, next)
+  },
+  getAuth: async function getAuth (ctx, next) {
+    console.log('into getAuth')
+    console.log(ctx.header.authorization)
+    await next()
   }
 }
