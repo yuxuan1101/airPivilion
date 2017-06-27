@@ -4,13 +4,20 @@
 // const passport = require('koa-passport')
 
 module.exports = function (io) {
-  let userList = []
+  let userList = {}
   io.on('connect', function (socket) {
     // 设置TCP连接超时时间
-    socket.emit('othersLogin', userList)
-    socket.on('login', (info, next) => {
-      // passport.deserializeUser
-      console.log(info + ' login')
+    console.log(socket.id + 'connect')
+    userList[socket.id] = {signed: false}
+    socket.broadcast.emit('othersLogin', userList)
+    socket.on('login', (user, next) => {
+      console.log(user.username + ' login')
+      userList[socket.id] = user
+      socket.broadcast.emit('othersLogin', userList)
+    })
+    socket.on('disconnect', () => {
+      delete userList[socket.id]
+      console.log(socket.id + 'disconnect')
     })
   })
 }

@@ -5,7 +5,7 @@ import React from 'react'
 import {List} from 'material-ui/List'
 import UserItem from './UserItem.js'
 import { connect } from 'react-redux'
-import {othersLogin} from '../actions/socketOn'
+import {othersLogin} from '../actions/socketListener'
 
 class UserList extends React.Component {
   render () {

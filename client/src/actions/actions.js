@@ -28,7 +28,7 @@ export function authRequest () {
   }
 }
 export function fetchAuthSuccess (res) {
-  socket.emit('login', res.user.id)
+  socket.emit('login', res.user)
   window.localStorage.setItem('token', res.token)
   return {
     type: FETCH_AUTH_SUCCESS,

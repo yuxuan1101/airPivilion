@@ -18,7 +18,7 @@ module.exports = {
     try {
       const user = await User.findById(id, '-password -_id')
       const response = user.toJSON()
-      ctx.body = response
+      ctx.body = Object.assign(response, {id: id})
     } catch (err) {
       ctx.body = {error: true, errMsg: err}
     }
