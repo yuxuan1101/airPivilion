@@ -14,7 +14,7 @@ export default class UserItem extends React.Component {
     return (
       <div>
         <ListItem
-          primaryText={this.props.name}
+          primaryText={this.props.username}
           secondaryText={'last content.....'}
           leftAvatar={<Avatar size={50} src={'avatar?avatar=' + this.props.avatar} />}
           rightIcon={<FontIcon className="material-icons">chat_bubble</FontIcon>}
@@ -28,5 +28,5 @@ UserItem.defaultProps = {
   avatar: 'default-1.jpg'
 }
 UserItem.propTypes = {
-  name: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired
 }

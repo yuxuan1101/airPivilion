@@ -5,11 +5,9 @@ import React from 'react'
 import {List} from 'material-ui/List'
 import UserItem from './UserItem.js'
 import { connect } from 'react-redux'
-import {othersLogin} from '../actions/socketListener'
 
 class UserList extends React.Component {
   render () {
-    this.props.othersLogin()
     return (
       <List>
         {this.props.userList.map((user, index) =>
@@ -27,5 +25,5 @@ export default connect(
     // chatContent: state.chatContent,
     userList: state.userList
   }),
-  {othersLogin}
+  null
 )(UserList)
