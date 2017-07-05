@@ -6,8 +6,8 @@ import store from '../store/configureStore'
 
 socket.on('connect', (clientId) => {
   store.dispatch(socketConnect(socket.id))
-  socket.post('/user', store.getState().user)
-  socket.get('/userList')
+  socket.post('/userlist', store.getState().user)
+  socket.get('/userlist')
 })
 socket.on('push_user_list', userList => {
   store.dispatch(receiveUserList(userList))

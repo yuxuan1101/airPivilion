@@ -1,17 +1,19 @@
 /**
  * Created by yuxuan on 9/13/16.
  */
-const {onlineUserStore} = require('../redis/RedisStore')
 const SocketRouter = require('./SocketRouter')
-const {getUserList, postUser} = require('./middlewares/onlineUser')
+const {getUserList, postUser, deleteUser} = require('./middlewares/onlineUserList')
 let socketRouter = new SocketRouter()
-socketRouter.post('/user', postUser, getUserList, async function (ctx) {
+socketRouter.post('/userlist', postUser, getUserList, async function (ctx) {
   ctx.socket.broadcast.emit('push_user_list', ctx.response)
 })
-socketRouter.get('/userList', getUserList, async function (ctx) {
+socketRouter.delete('/userlist', deleteUser, getUserList, async function (ctx) {
+  ctx.socket.broadcast.emit('push_user_list', ctx.response)
+})
+socketRouter.get('/userlist', getUserList, async function (ctx) {
   ctx.socket.emit('push_user_list', ctx.response)
 })
-// socketRouter.post('/userList', async function (ctx, next) {
+// socketRouter.post('/userlist', async function (ctx, next) {
 //   console.log('111111')
 //   await next()
 //   console.log('333333')
@@ -32,7 +34,10 @@ module.exports = function (io) {
       })
     })
     socket.on('disconnect', () => {
-      onlineUserStore.destroy(socketId)
+      socketRouter.handle('delete', '/userlist', {
+        socket: socket,
+        req: {params: socketId}
+      })
       console.log(socketId + 'disconnect')
     })
   })

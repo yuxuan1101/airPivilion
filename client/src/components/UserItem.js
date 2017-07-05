@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 
 export default class UserItem extends React.Component {
   render () {
-    console.log(this.props)
     return (
       <div>
         <ListItem

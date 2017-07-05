@@ -28,7 +28,7 @@ export function authRequest () {
   }
 }
 export function fetchAuthSuccess (res) {
-  socket.post('/user', res.user)
+  socket.post('/userlist', res.user)
   window.localStorage.setItem('token', res.token)
   return {
     type: FETCH_AUTH_SUCCESS,
