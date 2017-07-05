@@ -2,24 +2,17 @@
  * Created by yuxuan on 9/13/16.
  */
 const SocketRouter = require('./SocketRouter')
-const {getUserList, postUser, deleteUser} = require('./middlewares/onlineUserList')
+const {getUserList, postUserList, deleteUserList} = require('./middlewares/onlineUserList')
 let socketRouter = new SocketRouter()
-socketRouter.post('/userlist', postUser, getUserList, async function (ctx) {
+socketRouter.post('/userlist', postUserList, getUserList, async function (ctx) {
   ctx.socket.broadcast.emit('push_user_list', ctx.response)
 })
-socketRouter.delete('/userlist', deleteUser, getUserList, async function (ctx) {
+socketRouter.delete('/userlist', deleteUserList, getUserList, async function (ctx) {
   ctx.socket.broadcast.emit('push_user_list', ctx.response)
 })
 socketRouter.get('/userlist', getUserList, async function (ctx) {
   ctx.socket.emit('push_user_list', ctx.response)
 })
-// socketRouter.post('/userlist', async function (ctx, next) {
-//   console.log('111111')
-//   await next()
-//   console.log('333333')
-// }, async function (data, next) {
-//   console.log('222222')
-// })
 
 module.exports = function (io) {
   io.on('connect', function (socket) {
