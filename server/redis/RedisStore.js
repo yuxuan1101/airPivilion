@@ -29,7 +29,6 @@ class RedisStore {
     let allKeys = await this.findAllKeys()
     let needKeys = allKeys.filter(key =>
       !except.includes(key.slice(this.type.length + 1)))
-    console.log(`needKeys: ${needKeys}`)
     if (!needKeys.length) return []
     let result = await this.redis.mget(...needKeys)
     return result.map(item => JSON.parse(item))

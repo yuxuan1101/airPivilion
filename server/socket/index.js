@@ -11,13 +11,13 @@ socketRouter.post('/user', postUser, getUserList, async function (ctx) {
 socketRouter.get('/userList', getUserList, async function (ctx) {
   ctx.socket.emit('push_user_list', ctx.response)
 })
-socketRouter.post('/userList', async function (ctx, next) {
-  console.log('111111')
-  await next()
-  console.log('333333')
-}, async function (data, next) {
-  console.log('222222')
-})
+// socketRouter.post('/userList', async function (ctx, next) {
+//   console.log('111111')
+//   await next()
+//   console.log('333333')
+// }, async function (data, next) {
+//   console.log('222222')
+// })
 
 module.exports = function (io) {
   io.on('connect', function (socket) {
