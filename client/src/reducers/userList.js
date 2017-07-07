@@ -3,10 +3,18 @@
  */
 import {RECEIVE_USER_LIST} from '../actions/socketListener'
 
-export default function userList (state = [], action) {
+// test data
+let testUser = [{
+  id: 'test001',
+  username: 'test001'
+}, {
+  id: 'test002',
+  username: 'test002'
+}]
+export default function userList (state = [...testUser], action) {
   switch (action.type) {
     case RECEIVE_USER_LIST:
-      return action.userList
+      return [...testUser, ...action.userList]
     default:
       return state
   }
