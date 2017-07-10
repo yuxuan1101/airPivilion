@@ -41,3 +41,4 @@ client/dist
 bin/old
 .idea
 .vscode
+tsconfig.json
