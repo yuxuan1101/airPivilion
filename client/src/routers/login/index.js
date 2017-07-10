@@ -11,7 +11,9 @@ import Snackbar from 'material-ui/Snackbar'
 import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
 import {fetchAuth, postUser} from '../../actions/actions'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 class Login extends React.Component {
   constructor (props) {
     super(props)

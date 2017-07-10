@@ -7,7 +7,9 @@ import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 import FontIcon from 'material-ui/FontIcon'
 import PropTypes from 'prop-types'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 export default class UserItem extends React.Component {
   render () {
     return (

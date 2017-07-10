@@ -12,7 +12,9 @@ import {blue500} from 'material-ui/styles/colors'
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin'
 import RightNav from './RightNav'
 import Avatar from 'material-ui/Avatar'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 class Header extends React.Component {
   render () {
     return (

@@ -11,7 +11,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Header from '../components/Header'
 import headerImg from '../images/bg_anime.jpg'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 export default class Root extends React.Component {
   constructor (props) {
     super(props)

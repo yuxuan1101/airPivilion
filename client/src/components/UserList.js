@@ -5,7 +5,9 @@ import React from 'react'
 import {List} from 'material-ui/List'
 import UserItem from './UserItem.js'
 import { connect } from 'react-redux'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 class UserList extends React.Component {
   render () {
     return (

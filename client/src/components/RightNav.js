@@ -9,7 +9,9 @@ import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import FontIcon from 'material-ui/FontIcon'
 import {logout} from '../actions/actions'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 class RightNav extends React.Component {
   render () {
     return (

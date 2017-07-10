@@ -6,6 +6,9 @@ import Avatar from 'material-ui/Avatar'
 import Paper from 'material-ui/Paper'
 import {blue200} from 'material-ui/styles/colors'
 import {convertByNow} from '../utils/DateTimeUtils'
+import pureRender from 'pure-render-decorator'
+
+@pureRender
 export default class Message extends React.Component {
   render () {
     let isMe = this.props.from === Symbol.for('me')

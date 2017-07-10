@@ -5,7 +5,9 @@ import React from 'react'
 import Message from './Message'
 import Paper from 'material-ui/Paper'
 import { connect } from 'react-redux'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 class ChatContent extends React.Component {
   render () {
     console.log(this.props)

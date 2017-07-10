@@ -1,6 +1,8 @@
 import React from 'react'
 import NavLink from './NavLink'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 export default class Repos extends React.Component {
   render () {
     return (

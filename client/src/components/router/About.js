@@ -1,5 +1,7 @@
 import React from 'react'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 export default class About extends React.Component {
   // getInitialState () {
   //   let url = '/user'

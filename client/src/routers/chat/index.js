@@ -9,6 +9,9 @@ import Avatar from 'material-ui/Avatar'
 import FontIcon from 'material-ui/FontIcon'
 import UserList from '../../components/UserList'
 import ChatContent from '../../components/ChatContent'
+import pureRender from 'pure-render-decorator'
+
+@pureRender
 export default class Chat extends React.Component {
   render () {
     return (

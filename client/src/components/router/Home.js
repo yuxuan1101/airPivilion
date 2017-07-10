@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import pureRender from 'pure-render-decorator'
 
+@pureRender
 class Home extends React.Component {
   render () {
     return <div>Home: {this.props.user.username}</div>
