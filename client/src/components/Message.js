@@ -8,10 +8,12 @@ import {blue200} from 'material-ui/styles/colors'
 import {convertByNow} from '../utils/DateTimeUtils'
 export default class Message extends React.Component {
   render () {
-    console.log(this.props)
+    let isMe = this.props.from === Symbol.for('me')
+    let style = {margin: '15px', display: 'flex', alignItems: 'flex-start'}
+    if (isMe) style.flexDirection = 'row-reverse'
     return (
-      <div style={{margin: '15px', display: 'flex', alignItems: 'flex-start'}}>
-        <Avatar size={35} src={'avatar?avatar=' + this.props.avatar}/>
+      <div style={style}>
+        <Avatar size={35} src={'avatar?avatar=' + this.props.avatar} style={{marginTop: '10px'}}/>
         <div style={{margin: '0 14px'}}>
           <div>
             <span style={{fontSize: '14px'}}>{this.props.from}</span>

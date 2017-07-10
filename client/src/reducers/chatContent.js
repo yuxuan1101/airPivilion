@@ -21,6 +21,12 @@ export default function chatContent (state = [{
   to: 'test001',
   time: 1499417746066,
   text: '长文本！！！ send a long message！！！ 长文本！！！ send a long message！！！ 长文本！！！ send a long message！！！ 长文本！！！ send a long message！！！'
+}, {
+  system: false,
+  from: Symbol.for('me'),
+  to: 'test001',
+  time: 1499417746066,
+  text: 'it\'s me！！！'
 }], action) {
   switch (action.type) {
     case SEND_CHATMESSAGE:
