@@ -9,6 +9,7 @@ import Avatar from 'material-ui/Avatar'
 import FontIcon from 'material-ui/FontIcon'
 import UserList from '../../components/UserList'
 import ChatContent from '../../components/ChatContent'
+import InputBox from '../../components/InputBox'
 import pureRender from 'pure-render-decorator'
 
 @pureRender
@@ -25,7 +26,16 @@ export default class Chat extends React.Component {
           </Paper>
         </div>
         <div className={style.middle}>
-          <ChatContent />
+          <Paper zDepth={1} style={{
+            display: 'flex',
+            flex: 'auto',
+            margin: '5px',
+            marginTop: '15px',
+            flexDirection: 'column'
+          }}>
+            <ChatContent />
+            <InputBox />
+          </Paper>
         </div>
         <div className={style.right}>
           <Paper zDepth={2} circle={true} style={{

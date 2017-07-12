@@ -12,7 +12,7 @@ import pureRender from 'pure-render-decorator'
 export default class Message extends React.Component {
   render () {
     let isMe = this.props.from === Symbol.for('me')
-    let style = {margin: '15px', display: 'flex', alignItems: 'flex-start'}
+    let style = {padding: '0 15px 15px 15px', display: 'flex', flex: 'none', alignItems: 'flex-start'}
     if (isMe) style.flexDirection = 'row-reverse'
     return (
       <div style={style}>

@@ -3,19 +3,19 @@
  */
 import React from 'react'
 import Message from './Message'
-import Paper from 'material-ui/Paper'
+import {grey100} from 'material-ui/styles/colors'
 import { connect } from 'react-redux'
 import pureRender from 'pure-render-decorator'
 
 @pureRender
 class ChatContent extends React.Component {
   render () {
-    console.log(this.props)
     return (
-      <Paper zDepth={1} style={{
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
         flex: 'auto',
-        margin: '5px',
-        marginTop: '15px'
+        backgroundColor: grey100
       }}>
         {this.props.chatContent.map((message, index) =>
           <Message
@@ -23,7 +23,7 @@ class ChatContent extends React.Component {
             key={index}
           />
         )}
-      </Paper>
+      </div>
     )
   }
 }
