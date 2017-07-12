@@ -1,7 +1,7 @@
 /**
  * Created by yuxuan on 8/31/16.
  */
-import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE, GET_USER_REQUEST, GET_USER_FAILURE} from '../actions/actions'
+import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE, GET_USER_REQUEST, GET_USER_FAILURE} from '../actions/user'
 import {SOCKET_CONNECT} from '../actions/socketListener'
 // username
 // id ?

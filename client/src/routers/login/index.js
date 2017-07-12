@@ -10,7 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
-import {fetchAuth, postUser} from '../../actions/actions'
+import {fetchAuth, postUser} from '../../actions/user'
 import pureRender from 'pure-render-decorator'
 
 @pureRender

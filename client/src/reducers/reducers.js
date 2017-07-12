@@ -1,4 +1,4 @@
-import {LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
+import {LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/user'
 
 // function inputBox(state = {from: "", to: "所有人"}, action) {
 //   switch (action.type) {

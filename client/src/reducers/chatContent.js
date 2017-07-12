@@ -1,7 +1,7 @@
 /**
  * Created by yuxuan on 8/31/16.
  */
-import {SEND_CHATMESSAGE, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
+import {SEND_CHATMESSAGE, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/user'
 
 export default function chatContent (state = [{
   system: false,

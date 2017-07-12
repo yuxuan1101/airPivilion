@@ -12,7 +12,7 @@ import Repo from './components/router/Repo'
 import Login from './routers/login'
 import Chat from './routers/chat'
 import './actions/socketListener'
-import {getUser} from './actions/actions'
+import {getUser} from './actions/user'
 import './stylesheets/index.less'
 import './stylesheets/font/icons.css'
 
