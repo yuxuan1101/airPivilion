@@ -3,6 +3,7 @@
  */
 const SocketRouter = require('./SocketRouter')
 const {getUserList, postUserList, deleteUserList} = require('./middlewares/onlineUserList')
+const {postChatMessages} = require('./middlewares/chatMessageList')
 let socketRouter = new SocketRouter()
 socketRouter.post('/userlist', postUserList, getUserList, async function (ctx) {
   ctx.socket.broadcast.emit('push_user_list', ctx.response)
@@ -12,6 +13,9 @@ socketRouter.delete('/userlist', deleteUserList, getUserList, async function (ct
 })
 socketRouter.get('/userlist', getUserList, async function (ctx) {
   ctx.socket.emit('push_user_list', ctx.response)
+})
+socketRouter.post('/chatMessage', postChatMessages, async function (ctx) {
+  ctx.socket.broadcast.emit('push_chat_Message', ctx.response)
 })
 
 module.exports = function (io) {

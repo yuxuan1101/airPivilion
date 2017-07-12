@@ -1,7 +1,7 @@
 /**
  * Created by yuxuan on 8/31/16.
  */
-import {SEND_CHATMESSAGE, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/user'
+import {SEND_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
 
 export default function chatContent (state = [{
   system: false,
@@ -29,7 +29,8 @@ export default function chatContent (state = [{
   text: 'it\'s me！！！'
 }], action) {
   switch (action.type) {
-    case SEND_CHATMESSAGE:
+    case SEND_CHAT_MESSAGE:
+    case RECEIVE_CHAT_MESSAGE:
       return [
         ...state,
         {
