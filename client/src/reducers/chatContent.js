@@ -3,31 +3,7 @@
  */
 import {SEND_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
 
-export default function chatContent (state = [{
-  system: false,
-  from: 'test001',
-  to: 'test002',
-  time: 1499417746066,
-  text: '001 to 002'
-}, {
-  system: false,
-  from: 'test002',
-  to: 'test001',
-  time: 1499411746066,
-  text: '002 to 001'
-}, {
-  system: false,
-  from: 'test002',
-  to: 'test001',
-  time: 1499417746066,
-  text: '长文本！！！ send a long message！！！ 长文本！！！ send a long message！！！ 长文本！！！ send a long message！！！ 长文本！！！ send a long message！！！'
-}, {
-  system: false,
-  from: Symbol.for('me'),
-  to: 'test001',
-  time: 1499417746066,
-  text: 'it\'s me！！！'
-}], action) {
+export default function chatContent (state = [], action) {
   switch (action.type) {
     case SEND_CHAT_MESSAGE:
     case RECEIVE_CHAT_MESSAGE:
@@ -38,7 +14,7 @@ export default function chatContent (state = [{
           from: action.from,
           to: action.to,
           text: action.text,
-          data: action.data
+          time: Date.now()
         }
       ]
     case SEND_SYSTEMMESSAGE:

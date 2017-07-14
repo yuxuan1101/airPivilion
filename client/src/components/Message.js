@@ -19,12 +19,16 @@ export default class Message extends React.Component {
         <Avatar size={35} src={'avatar?avatar=' + this.props.avatar} style={{marginTop: '10px'}}/>
         <div style={{margin: '0 14px'}}>
           <div>
-            <span style={{fontSize: '14px'}}>{this.props.from}</span>
+            <span style={{fontSize: '14px'}}>{this.props.from.username}</span>
             <span style={{fontSize: '12px', marginLeft: '2px'}}>{convertByNow(this.props.time)}</span>
           </div>
           <Paper zDepth={1} style={{
             backgroundColor: blue200,
-            padding: '5px 10px'
+            padding: '5px 10px',
+            maxWidth: '80%',
+            wordBreak: 'break-all',
+            wordWrap: 'break-word',
+            whiteSpace: 'pre-wrap'
           }}>{this.props.text}</Paper>
         </div>
       </div>
