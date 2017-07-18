@@ -1,11 +1,11 @@
 const Redis = require('ioredis')
 
 class RedisStore {
-  constructor (type = '') {
+  constructor (type = '', opts = {}) {
     this.type = type
     this.redis = new Redis()
     // 清空旧数据
-    this.clean().then(result => console.log(`del old keys ${result}`))
+    if (opts.clean) this.clean().then(result => console.log(`del old keys ${result}`))
   }
   async clean () {
     let allKeys = await this.findAllKeys()
@@ -52,5 +52,6 @@ class RedisStore {
 }
 
 module.exports = {
-  onlineUserStore: new RedisStore('onlineUser')
+  onlineUserStore: new RedisStore('onlineUser', {clean: true}),
+  chatMessageStore: new RedisStore('chatMessage')
 }

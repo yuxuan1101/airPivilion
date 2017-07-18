@@ -1,7 +1,7 @@
 /**
  * Created by yuxuan on 8/31/16.
  */
-import {SEND_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
+import {SEND_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, GET_CHAT_MESSAGES_SUCCESS, SEND_SYSTEMMESSAGE, LOGIN, OTHERS_LOGIN, OTHERS_LOGOUT} from '../actions/actions'
 
 export default function chatContent (state = [], action) {
   switch (action.type) {
@@ -17,6 +17,8 @@ export default function chatContent (state = [], action) {
           time: Date.now()
         }
       ]
+    case GET_CHAT_MESSAGES_SUCCESS:
+      return action.messageList
     case SEND_SYSTEMMESSAGE:
       return [
         ...state,

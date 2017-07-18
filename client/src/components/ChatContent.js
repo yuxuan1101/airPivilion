@@ -4,10 +4,14 @@
 import React from 'react'
 import Message from './Message'
 import { connect } from 'react-redux'
+import {getChatMessages} from '../actions/actions'
 import pureRender from 'pure-render-decorator'
 
 @pureRender
 class ChatContent extends React.Component {
+  componentWillMount () {
+    this.props.getChatMessages()
+  }
   render () {
     return (
       <div style={{
@@ -30,5 +34,5 @@ export default connect(
     chatContent: state.chatContent,
     userList: state.userList
   }),
-  null
+  {getChatMessages}
 )(ChatContent)

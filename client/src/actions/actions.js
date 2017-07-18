@@ -2,7 +2,7 @@ import socket from './socket'
 
 export const SEND_CHAT_MESSAGE = 'SEND_CHAT_MESSAGE'
 export const RECEIVE_CHAT_MESSAGE = 'RECEIVE_CHAT_MESSAGE'
-
+export const GET_CHAT_MESSAGES_SUCCESS = 'GET_CHAT_MESSAGES_SUCCESS'
 export function sendChatMessage (to, text) {
   socket.post('/chatMessage', {to, text})
   return {
@@ -18,5 +18,16 @@ export function receiveChatMessage (obj) {
     from: obj.from,
     to: obj.to,
     text: obj.text
+  }
+}
+export function getChatMessages () {
+  return dispatch => {
+    socket.get('/chatMessage', undefined, data => {
+      console.log(data)
+      dispatch({
+        type: GET_CHAT_MESSAGES_SUCCESS,
+        messageList: data
+      })
+    })
   }
 }
