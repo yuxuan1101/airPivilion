@@ -41,7 +41,7 @@ export default class Chat extends React.Component {
           <Paper zDepth={2} circle={true} style={{
             width: '50px',
             height: '50px',
-            marginTop: '35px',
+            margin: '35px 15px 0 0',
             alignSelf: 'center'
           }}>
             <Avatar backgroundColor={blue200} size={50} icon={<FontIcon className="material-icons">border_color</FontIcon>}/>

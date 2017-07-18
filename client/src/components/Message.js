@@ -17,7 +17,12 @@ export default class Message extends React.Component {
     return (
       <div style={style}>
         <Avatar size={35} src={'avatar?avatar=' + this.props.avatar} style={{marginTop: '10px'}}/>
-        <div style={{margin: '0 14px'}}>
+        <div style={{margin: '0 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 'none',
+          maxWidth: '80%'
+        }}>
           <div>
             <span style={{fontSize: '14px'}}>{this.props.from.username}</span>
             <span style={{fontSize: '12px', marginLeft: '2px'}}>{convertByNow(this.props.time)}</span>
@@ -25,10 +30,7 @@ export default class Message extends React.Component {
           <Paper zDepth={1} style={{
             backgroundColor: blue200,
             padding: '5px 10px',
-            maxWidth: '80%',
-            wordBreak: 'break-all',
-            wordWrap: 'break-word',
-            whiteSpace: 'pre-wrap'
+            wordBreak: 'break-all'
           }}>{this.props.text}</Paper>
         </div>
       </div>

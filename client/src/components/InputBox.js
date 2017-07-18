@@ -10,8 +10,15 @@ import pureRender from 'pure-render-decorator'
 
 @pureRender
 class InputBox extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      input: ''
+    }
+  }
   send = () => {
-    this.props.sendChatMessage('all', this.refs.input.getValue())
+    this.props.sendChatMessage('all', this.state.input)
+    this.setState({input: ''})
   }
   render () {
     return (
@@ -21,7 +28,8 @@ class InputBox extends React.Component {
       }}>
         <div style={{display: 'flex', flex: 'auto'}}>
           <TextField name='input_box' multiLine={true} hintText='输入信息'
-            rowsMax={3} ref='input' fullWidth={true}/>
+            rowsMax={3} fullWidth={true} value={this.state.input}
+            onChange={event => this.setState({input: event.target.value})}/>
         </div>
         <Avatar icon={<FontIcon className="material-icons">send</FontIcon>}
           size={30} style={{

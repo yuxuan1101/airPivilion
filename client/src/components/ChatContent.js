@@ -3,7 +3,6 @@
  */
 import React from 'react'
 import Message from './Message'
-import {grey100} from 'material-ui/styles/colors'
 import { connect } from 'react-redux'
 import pureRender from 'pure-render-decorator'
 
@@ -14,8 +13,7 @@ class ChatContent extends React.Component {
       <div style={{
         display: 'flex',
         flexDirection: 'column',
-        flex: 'auto',
-        backgroundColor: grey100
+        flex: 'auto'
       }}>
         {this.props.chatContent.map((message, index) =>
           <Message
