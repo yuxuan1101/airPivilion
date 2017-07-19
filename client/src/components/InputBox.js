@@ -26,7 +26,7 @@ class InputBox extends React.Component {
         display: 'flex',
         flex: 'none'
       }}>
-        <div style={{display: 'flex', flex: 'auto'}}>
+        <div style={{display: 'flex', flex: 'auto', paddingLeft: '5px'}}>
           <TextField name='input_box' multiLine={true} hintText='输入信息'
             rowsMax={3} fullWidth={true} value={this.state.input}
             onChange={event => this.setState({input: event.target.value})}/>

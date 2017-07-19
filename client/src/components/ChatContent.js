@@ -22,6 +22,7 @@ class ChatContent extends React.Component {
         {this.props.chatContent.map((message, index) =>
           <Message
             {...message}
+            user={this.props.user}
             key={index}
           />
         )}
@@ -32,7 +33,7 @@ class ChatContent extends React.Component {
 export default connect(
   state => ({
     chatContent: state.chatContent,
-    userList: state.userList
+    user: state.user
   }),
   {getChatMessages}
 )(ChatContent)
