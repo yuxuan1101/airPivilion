@@ -9,15 +9,29 @@ import pureRender from 'pure-render-decorator'
 
 @pureRender
 class ChatContent extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      onBottom: true
+    }
+  }
   componentWillMount () {
     this.props.getChatMessages()
   }
+  componentDidUpdate () {
+    if (this.state.onBottom) this.refs.container.scrollTop = this.refs.container.scrollHeight
+  }
+  handleScroll () {
+    if (this.refs.container.scrollTop >= this.refs.container.scrollHeight) this.setState({onBottom: true})
+    else this.setState({onBottom: false})
+  }
   render () {
     return (
-      <div style={{
+      <div ref='container' style={{
         display: 'flex',
         flexDirection: 'column',
-        flex: 'auto'
+        flex: 'auto',
+        overflowY: 'scroll'
       }}>
         {this.props.chatContent.map((message, index) =>
           <Message

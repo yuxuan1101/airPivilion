@@ -22,6 +22,12 @@ class RedisStore {
       }).on('data', resultKeys => resolve(resultKeys))
     })
   }
+  /**
+   * 获取符合条件的所有key的值
+   * @param {*} opts
+   *  except:[...sid] || sid
+   *  sort: Function || 'reverse'
+   */
   async getAll (opts) {
     if (!opts) opts = {}
     let except = Array.isArray(opts.except) ? opts.except : [opts.except]
@@ -30,6 +36,9 @@ class RedisStore {
     let needKeys = allKeys.filter(key =>
       !except.includes(key.slice(this.type.length + 1)))
     if (!needKeys.length) return []
+
+    if (opts.sort === 'reverse') needKeys.reverse()
+    else if (typeof opts.sort === 'function') needKeys.sort(opts.sort)
     let result = await this.redis.mget(...needKeys)
     return result.map(item => JSON.parse(item))
   }

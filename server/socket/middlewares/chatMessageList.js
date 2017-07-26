@@ -10,7 +10,8 @@ module.exports = {
     next()
   },
   getChatMessages: async function (ctx, next) {
-    let response = await chatMessageStore.getAll()
+    let response = await chatMessageStore.getAll({sort: 'reverse'})
+    console.log(response)
     ctx.callback(response)
   }
 }

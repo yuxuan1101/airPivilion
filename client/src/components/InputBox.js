@@ -16,6 +16,19 @@ class InputBox extends React.Component {
       input: ''
     }
   }
+  keyDownHandle = event => {
+    // if (event.code === 'ShiftLeft') this.keyPressState.shiftLeft
+    if (event.keyCode === 13 && event.shiftKey) {
+      event.preventDefault()
+      this.send()
+    }
+  }
+  componentDidMount () {
+    window.addEventListener('keydown', this.keyDownHandle, true)
+  }
+  componentWillUnmount () {
+    window.removeEventListener('keydown', this.keyDownHandle, true)
+  }
   send = () => {
     this.props.sendChatMessage('all', this.state.input)
     this.setState({input: ''})
