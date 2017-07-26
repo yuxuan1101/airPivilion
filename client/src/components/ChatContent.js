@@ -27,7 +27,7 @@ class ChatContent extends React.Component {
   }
   render () {
     return (
-      <div ref='container' style={{
+      <div ref='container' className='scroll-bar' style={{
         display: 'flex',
         flexDirection: 'column',
         flex: 'auto',
