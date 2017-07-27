@@ -9,7 +9,7 @@ import React from 'react'
 // import {blue500} from 'material-ui/styles/colors'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import Header from '../components/Header'
+import Header from './Header'
 import headerImg from '../images/bg_anime.jpg'
 import pureRender from 'pure-render-decorator'
 

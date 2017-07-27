@@ -31,10 +31,11 @@ export function fetchAuthSuccess (res, nextUrl) {
   socket.post('/userlist', res.user)
   window.localStorage.setItem('token', res.token)
 
-  nextUrl = nextUrl || window.history.state ? window.history.state.state.nextUrl : '/'
-  console.log(nextUrl)
-  if (nextUrl === '/login') nextUrl = '/'
-  history.push(nextUrl)
+  if (nextUrl) {
+    if (typeof nextUrl === 'boolean') nextUrl = window.history.state ? window.history.state.state.nextUrl : '/'
+    if (nextUrl === '/login') nextUrl = '/'
+    history.push(nextUrl)
+  }
   return {
     type: FETCH_AUTH_SUCCESS,
     token: res.token,
@@ -48,7 +49,7 @@ export function fetchAuthFailure (error) {
     errMsg: error.message
   }
 }
-export function fetchAuth (subUser, nextUrl) {
+export function fetchAuth (subUser) {
   return function (dispatch) {
     dispatch(authRequest())
     return fetch('/auth', {
@@ -66,7 +67,7 @@ export function fetchAuth (subUser, nextUrl) {
       if (data.error) {
         throw new Error(data.errMsg)
       } else {
-        dispatch(fetchAuthSuccess(data, nextUrl))
+        dispatch(fetchAuthSuccess(data, true))
       }
     }).catch(error => dispatch(fetchAuthFailure(error)))
   }
@@ -87,7 +88,7 @@ export function postUserFailure (error) {
     errMsg: error.message
   }
 }
-export function postUser (subUser, nextUrl) {
+export function postUser (subUser) {
   return function (dispatch) {
     dispatch(postUserRequest())
     return fetch('/user', {
@@ -106,7 +107,7 @@ export function postUser (subUser, nextUrl) {
         throw new Error(data.errMsg)
       } else {
         dispatch(postUserSuccess())
-        dispatch(fetchAuthSuccess(data))
+        dispatch(fetchAuthSuccess(data, true))
       }
     }).catch(function (error) {
       dispatch(postUserFailure(error))

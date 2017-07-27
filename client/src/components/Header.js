@@ -12,6 +12,7 @@ import {blue500} from 'material-ui/styles/colors'
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin'
 import RightNav from './RightNav'
 import Avatar from 'material-ui/Avatar'
+import history from '../history'
 import pureRender from 'pure-render-decorator'
 
 @pureRender
@@ -44,7 +45,7 @@ class Header extends React.Component {
           <Tabs style={{flex: '1 1 auto'}}
                 inkBarStyle={{backgroundColor: blue500}}
                 value={'/' + window.location.pathname.split('/')[1]}
-                onChange={(value) => this.context.router.push(value)}
+                onChange={(value) => history.push(value)}
           >
             <Tab
               icon={<FontIcon className="material-icons">chat</FontIcon>}
@@ -54,12 +55,12 @@ class Header extends React.Component {
             <Tab
               icon={<FontIcon className="material-icons">favorite</FontIcon>}
               label="FAVORITES"
-              value="/"
+              value="/group"
             />
             <Tab
               icon={<MapsPersonPin />}
               label="NEARBY"
-              value="/repos"
+              value="/user"
             />
           </Tabs>
         </div>
