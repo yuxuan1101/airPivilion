@@ -6,16 +6,15 @@ import {user, auth} from './common'
 import userList from './userList'
 import login from './login'
 import { combineReducers } from 'redux'
-import {routerReducer as routing} from 'react-router-redux'
+// import {routerReducer as routing} from 'react-router-redux'
 
 const rootReducer = combineReducers({
-  // reducer,
   chatContent,
   user,
   auth,
   login,
-  userList,
-  routing
+  userList
+  // routing
 })
 
 export default rootReducer

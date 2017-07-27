@@ -1,14 +1,12 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, Switch } from 'react-router'
 import history from './history'
 import { Provider } from 'react-redux'
 import store from './store/configureStore'
 import Root from './components/Root'
 import User from './components/User'
 import Group from './components/Group'
-import Repos from './components/router/Repos'
-import Repo from './components/router/Repo'
 import Login from './components/Login'
 import Chat from './components/Chat'
 import './actions/socketListener'
@@ -28,16 +26,17 @@ if (token) store.dispatch(getUser(token))
 render((
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={Root}>
-          <IndexRoute component={Chat}/>
-          <Route path="/chat" component={Chat}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/repos" component={Repos}>
-            <Route path="/repos/:userName/:repoName" component={Repo}/>
-          </Route>
-          <Route path="/user" component={User}/>
-          <Route path="/group" component={Group}/>
-        </Route>
+        <Route path="/" component={(props) => (
+          <Root {...props}>
+            <Switch>
+              <Route exact path="/" component={Chat}/>
+              <Route path="/chat" component={Chat}/>
+              <Route path="/login" component={Login}/>
+              <Route path="/user" component={User}/>
+              <Route path="/group" component={Group}/>
+            </Switch>
+          </Root>
+        )}/>
       </Router>
     </Provider>
 ), document.getElementById('app'))

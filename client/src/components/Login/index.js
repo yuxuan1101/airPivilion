@@ -111,7 +111,6 @@ export default connect(state => {
       console.log(state.login.errMsg)
   }
   return {
-    nextUrl: state.routing.locationBeforeTransitions.state ? state.routing.locationBeforeTransitions.state.nextUrl : '/',
     errMsg,
     authFetcing: state.auth.isfetching,
     userPosting: state.login.userPosting

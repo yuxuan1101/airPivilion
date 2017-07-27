@@ -27,9 +27,14 @@ export function authRequest () {
     type: FETCH_AUTH_REQUEST
   }
 }
-export function fetchAuthSuccess (res) {
+export function fetchAuthSuccess (res, nextUrl) {
   socket.post('/userlist', res.user)
   window.localStorage.setItem('token', res.token)
+
+  nextUrl = nextUrl || window.history.state ? window.history.state.state.nextUrl : '/'
+  console.log(nextUrl)
+  if (nextUrl === '/login') nextUrl = '/'
+  history.push(nextUrl)
   return {
     type: FETCH_AUTH_SUCCESS,
     token: res.token,
@@ -61,8 +66,7 @@ export function fetchAuth (subUser, nextUrl) {
       if (data.error) {
         throw new Error(data.errMsg)
       } else {
-        dispatch(fetchAuthSuccess(data))
-        history.push(nextUrl)
+        dispatch(fetchAuthSuccess(data, nextUrl))
       }
     }).catch(error => dispatch(fetchAuthFailure(error)))
   }
@@ -103,8 +107,6 @@ export function postUser (subUser, nextUrl) {
       } else {
         dispatch(postUserSuccess())
         dispatch(fetchAuthSuccess(data))
-        if (nextUrl === '/login') nextUrl = '/'
-        history.push(nextUrl)
       }
     }).catch(function (error) {
       dispatch(postUserFailure(error))
