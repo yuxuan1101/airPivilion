@@ -5,7 +5,7 @@ import pureRender from 'pure-render-decorator'
 @pureRender
 class Home extends React.Component {
   render () {
-    return <div>Home: {this.props.user.username}</div>
+    return <div>user: {this.props.user.username}</div>
   }
 }
 function mapStateToProps (state) {

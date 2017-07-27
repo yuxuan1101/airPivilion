@@ -5,8 +5,8 @@ import history from './history'
 import { Provider } from 'react-redux'
 import store from './store/configureStore'
 import Root from './routers/Root'
-import Home from './components/router/Home'
-import About from './components/router/About'
+import User from './components/User'
+import Group from './components/Group'
 import Repos from './components/router/Repos'
 import Repo from './components/router/Repo'
 import Login from './routers/login'
@@ -29,14 +29,14 @@ render((
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={Root}>
-          <IndexRoute component={Home}/>
-
+          <IndexRoute component={Chat}/>
+          <Route path="/chat" component={Chat}/>
           <Route path="/login" component={Login}/>
           <Route path="/repos" component={Repos}>
             <Route path="/repos/:userName/:repoName" component={Repo}/>
           </Route>
-          <Route path="/about" component={About}/>
-          <Route path="/chat" component={Chat}/>
+          <Route path="/user" component={User}/>
+          <Route path="/group" component={Group}/>
         </Route>
       </Router>
     </Provider>
