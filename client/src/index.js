@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, Switch } from 'react-router'
+import { Router, Route, Switch, Redirect } from 'react-router'
 import history from './history'
 import { Provider } from 'react-redux'
 import store from './store/configureStore'
@@ -29,7 +29,9 @@ render((
         <Route path="/" component={(props) => (
           <Root {...props}>
             <Switch>
-              <Route exact path="/" component={Chat}/>
+              <Route exact path="/" render={() => (
+                <Redirect to="/chat"/>
+              )}/>
               <Route path="/chat" component={Chat}/>
               <Route path="/login" component={Login}/>
               <Route path="/user" component={User}/>
