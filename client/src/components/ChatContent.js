@@ -31,7 +31,7 @@ class ChatContent extends React.Component {
         display: 'flex',
         flexDirection: 'column',
         flex: 'auto',
-        overflowY: 'scroll'
+        overflowY: 'auto'
       }}>
         {this.props.chatContent.map((message, index) =>
           <Message
