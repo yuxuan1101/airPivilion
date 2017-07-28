@@ -10,13 +10,13 @@ import {SOCKET_CONNECT} from '../actions/socketListener'
 // token
 // signed 是否登录
 
-export function user (state = {username: '游客', signed: false, isfetching: false}, action) {
+export function user (state = {username: '游客', id: undefined, signed: false, isfetching: false}, action) {
   switch (action.type) {
     case GET_USER_REQUEST:
       return Object.assign({}, state, {isfetching: true})
     case GET_USER_FAILURE:
     case LOGOUT:
-      return {username: '游客', signed: false, isfetching: false}
+      return Object.assign({}, state, {username: '游客', id: undefined, signed: false, isfetching: false})
     case FETCH_AUTH_SUCCESS:
       return Object.assign({}, state, action.user, {
         signed: true,
