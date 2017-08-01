@@ -22,5 +22,9 @@ module.exports = {
     } catch (err) {
       ctx.body = {error: true, errMsg: err}
     }
+  },
+  putUser: async (ctx, next) => {
+    console.log('into pustUser')
+    console.log(ctx.params)
   }
 }

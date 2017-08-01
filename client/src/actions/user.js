@@ -150,3 +150,17 @@ export function getUser (token) {
     })
   }
 }
+export function patchUserAvatar (id, image, token) {
+  return function (dispatch) {
+    return fetch(`/user/${id}/avatar`, {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: token
+      }
+    }).then(function (res) {
+      if (res.ok) return res.json()
+    })
+  }
+}

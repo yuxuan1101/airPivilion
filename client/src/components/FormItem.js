@@ -8,7 +8,6 @@ import pureRender from 'pure-render-decorator'
 export default class FormItem extends React.Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
-    disabled: PropTypes.boolean,
     type: PropTypes.string,
     value: PropTypes.string,
     commit: (props, propName, componentName) => {
