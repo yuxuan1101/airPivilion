@@ -36,7 +36,7 @@ var server = new WebpackDevServer(compiler, {
             target: 'http://localhost:3000',
             secure: false
         },
-        "/avatar*": {
+        "/avatar/*": {
             target: 'http://localhost:3000',
             secure: false
         }

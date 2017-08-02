@@ -14,6 +14,7 @@ module.exports = {
     }
   },
   getUser: async (ctx, next) => {
+    if (ctx.status === 401) return
     const id = ctx.state.id
     try {
       const user = await User.findById(id, '-password -_id')

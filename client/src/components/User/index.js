@@ -46,7 +46,7 @@ class Home extends React.Component {
             marginTop: '-50px'
           }}>
             <Avatar size={90} style={{cursor: 'pointer'}}
-              src={'avatar?avatar=' + this.props.user.avatar}
+              src={'avatar/' + this.props.user.id}
               onClick={() => this.imageInput.click()}
               onMouseEnter={() => this.setState({ avatarHover: true })}
               onMouseLeave={() => this.setState({ avatarHover: false })}

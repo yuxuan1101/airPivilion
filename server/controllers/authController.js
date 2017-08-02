@@ -35,9 +35,9 @@ module.exports = {
     try {
       const userMessage = jwt.verify(token, config.token)
       ctx.state.id = userMessage.id
-      await next()
     } catch (e) {
       ctx.status = 401
     }
+    await next()
   }
 }

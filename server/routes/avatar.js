@@ -9,7 +9,7 @@ const auth = require('../controllers/authController')
 
 const router = new Router()
 
-router.get('/', avatar.getAvatar)
+router.get('/:id', avatar.getAvatar)
 router.post('/', auth.isAuthenticated, avatar.setAvatar)
 
 module.exports = router

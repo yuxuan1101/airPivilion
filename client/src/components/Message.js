@@ -16,7 +16,7 @@ export default class Message extends React.Component {
     if (isMe) style.flexDirection = 'row-reverse'
     return (
       <div style={style}>
-        <Avatar size={35} src={'avatar?avatar=' + this.props.avatar} style={{marginTop: '10px'}}/>
+        <Avatar size={35} src={'avatar/' + this.props.user.id} style={{marginTop: '10px'}}/>
         <div style={{margin: '0 14px',
           display: 'flex',
           flexDirection: 'column',
