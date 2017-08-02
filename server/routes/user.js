@@ -14,8 +14,5 @@ router.get('/', auth.isAuthenticated, user.getUser)
 router.post('/', user.createUser, auth.authUser)
 
 router.put('/:id/:key', user.putUser)
-// router.put('/:id/avatar', async function (ctx) {
-//   console.log('into avatar')
-// })
 
 module.exports = router

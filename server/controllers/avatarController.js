@@ -10,5 +10,10 @@ module.exports = {
     let avatarDir = path.join(__dirname, '../static/avatar')
     await send(ctx, avatar, {root: avatarDir})
     if (ctx.status === 404) await send(ctx, 'default-1.jpg', {root: avatarDir})
+  },
+  setAvatar: async function getAvatar (ctx, next) {
+    console.log('into pustUser')
+    console.log(ctx.state.id)
+    console.log(ctx.request.body.files.file.path)
   }
 }

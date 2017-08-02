@@ -22,21 +22,13 @@ class Home extends React.Component {
   handleImageChange () {
     const image = this.imageInput.files[0]
     if (!image) return
-    const reader = new FileReader()
-    let props = this.props
-    // 内存溢出？？？
-    reader.onloadend = function () {
-      console.log(this)
-      console.log(arguments)
-      // user.updateAvatar(this.result).then(response => {
-      //   if (response.status === 200) {
-      //     ui.closeUserSetting()
-      //     ui.closeMaskLayout()
-      //   }
-      // })
-      props.patchUserAvatar(props.user.id, this.result)
-    }
-    reader.readAsDataURL(image)
+    this.props.patchUserAvatar(image, this.props.auth.token)
+    // const reader = new FileReader()
+    // let props = this.props
+    // reader.onloadend = function () {
+    //   props.patchUserAvatar(props.user.id, image)
+    // }
+    // reader.readAsDataURL(image)
   }
   render () {
     return (
@@ -88,8 +80,9 @@ class Home extends React.Component {
     )
   }
 }
-function mapStateToProps (state) {
-  // console.log(state)
-  return {user: state.user}
-}
-export default connect(mapStateToProps, {patchUserAvatar})(Home)
+export default connect(state => {
+  return {
+    user: state.user,
+    auth: state.auth
+  }
+}, {patchUserAvatar})(Home)

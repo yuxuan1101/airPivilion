@@ -25,6 +25,5 @@ module.exports = {
   },
   putUser: async (ctx, next) => {
     console.log('into pustUser')
-    console.log(ctx.params)
   }
 }

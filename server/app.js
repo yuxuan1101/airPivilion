@@ -7,7 +7,7 @@ const json = require('koa-json')
 // const onerror = require('koa-onerror')
 const logger = require('koa-logger')
 const passport = require('koa-passport')
-const bodyparser = require('koa-bodyparser')
+const bodyparser = require('koa-body')
 const path = require('path')
 const mongoose = require('mongoose')
 const config = require('./config/config')
@@ -18,7 +18,12 @@ mongoose.connect(config.database, {
 })
 
 // middlewares
-app.use(bodyparser())
+app.use(bodyparser({
+  multipart: true,
+  formidable: {
+    uploadDir: path.join(__dirname, '/static/avatar')
+  }
+}))
 app.use(convert(json()))
 app.use(convert(logger()))
 app.use(convert(require('koa-static')(path.join(__dirname, '../client/dist'))))
