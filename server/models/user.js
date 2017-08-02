@@ -9,7 +9,8 @@ const config = require('../config/config')
 const User = new mongoose.Schema({
   type: { type: String, default: 'User' },
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  avatar: { type: String, required: false }
 })
 
 User.pre('save', function (next) {

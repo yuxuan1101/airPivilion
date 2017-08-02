@@ -11,6 +11,7 @@ export const GET_USER_REQUEST = 'GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 export const GET_USER_FAILURE = 'GET_USER_FAILURE'
 export const LOGOUT = 'LOGOUT'
+export const PUT_AVATAR_SUCCESS = 'PUT_AVATAR_SUCCESS'
 
 export function logout (thisUrl) {
   window.localStorage.removeItem('token')
@@ -154,15 +155,17 @@ export function patchUserAvatar (image, token) {
   return function (dispatch) {
     let formData = new FormData()
     formData.append('file', image)
-    // return fetch(`/user/${id}/avatar`, {
     return fetch('avatar', {
       method: 'post',
       body: formData,
       headers: {
         Authorization: token
       }
-    }).then(function (res) {
-      if (res.ok) return res.json()
     })
+    .then(res => res.json())
+    .then(data => dispatch({
+      type: PUT_AVATAR_SUCCESS,
+      avatar: data.avatar
+    }))
   }
 }

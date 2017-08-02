@@ -1,7 +1,7 @@
 /**
  * Created by yuxuan on 8/31/16.
  */
-import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE, GET_USER_REQUEST, GET_USER_FAILURE} from '../actions/user'
+import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE, GET_USER_REQUEST, GET_USER_FAILURE, PUT_AVATAR_SUCCESS} from '../actions/user'
 import {SOCKET_CONNECT} from '../actions/socketListener'
 // username
 // id ?
@@ -10,7 +10,13 @@ import {SOCKET_CONNECT} from '../actions/socketListener'
 // token
 // signed 是否登录
 
-export function user (state = {username: '游客', id: undefined, signed: false, isfetching: false}, action) {
+export function user (state = {
+  username: '游客',
+  id: undefined,
+  avatar: 'avatar/default-1.jpg',
+  signed: false,
+  isfetching: false
+}, action) {
   switch (action.type) {
     case GET_USER_REQUEST:
       return Object.assign({}, state, {isfetching: true})
@@ -24,6 +30,8 @@ export function user (state = {username: '游客', id: undefined, signed: false,
       })
     case SOCKET_CONNECT:
       return Object.assign({}, state, {socketId: action.socketId})
+    case PUT_AVATAR_SUCCESS:
+      return Object.assign({}, state, {avatar: action.avatar})
     default:
       return state
   }

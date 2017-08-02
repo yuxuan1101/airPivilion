@@ -17,7 +17,7 @@ export default class UserItem extends React.Component {
         <ListItem
           primaryText={this.props.username}
           secondaryText={'last content.....'}
-          leftAvatar={<Avatar size={50} src={'avatar/' + this.props.id} />}
+          leftAvatar={<Avatar size={50} src={this.props.avatar} />}
           rightIcon={<FontIcon className="material-icons">chat_bubble</FontIcon>}
         />
         <Divider inset={true}/>
@@ -26,7 +26,7 @@ export default class UserItem extends React.Component {
   }
 }
 UserItem.defaultProps = {
-  avatar: 'default-1.jpg'
+  avatar: 'avatar/default-1.jpg'
 }
 UserItem.propTypes = {
   username: PropTypes.string.isRequired
