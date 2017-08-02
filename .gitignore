@@ -42,3 +42,4 @@ bin/old
 .idea
 .vscode
 tsconfig.json
+server/static
