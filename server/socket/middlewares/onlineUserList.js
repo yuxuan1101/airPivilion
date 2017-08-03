@@ -1,4 +1,4 @@
-const {onlineUserStore} = require('../../redis/RedisStore')
+const {onlineUserStore} = require('../../redis/OnlineUserStore')
 
 module.exports = {
   postUserList: async function (ctx, next) {

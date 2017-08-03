@@ -1,4 +1,5 @@
-const {onlineUserStore, chatMessageStore} = require('../../redis/RedisStore')
+const {onlineUserStore} = require('../../redis/OnlineUserStore')
+const {chatMessageStore} = require('../../redis/ChatMessageStore')
 
 module.exports = {
   postChatMessages: async function (ctx, next) {

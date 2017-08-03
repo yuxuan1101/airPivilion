@@ -65,7 +65,4 @@ class RedisStore {
   }
 }
 
-module.exports = {
-  onlineUserStore: new RedisStore('onlineUser', {clean: true}),
-  chatMessageStore: new RedisStore('chatMessage')
-}
+module.exports = RedisStore
