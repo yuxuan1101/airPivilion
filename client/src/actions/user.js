@@ -29,7 +29,7 @@ export function authRequest () {
   }
 }
 export function fetchAuthSuccess (res, nextUrl) {
-  socket.post('/userlist', res.user)
+  socket.post('/userlist', res.user.id)
   window.localStorage.setItem('token', res.token)
 
   if (nextUrl) {
