@@ -1,23 +1,27 @@
 const Redis = require('ioredis')
-
+const redis = new Redis()
 class RedisStore {
   constructor (type = '', opts = {}) {
     this.type = type
-    this.redis = new Redis()
-    // 清空旧数据
+    this.redis = redis
+    // clean old data.
     if (opts.clean) this.clean().then(result => console.log(`del old keys ${result}`))
   }
+  /**
+   * @return Integer delete count
+   */
   async clean () {
     let allKeys = await this.findAllKeys()
     if (!allKeys.length) return 0
     return await this.redis.del(...allKeys)
   }
+  /**
+   * @return [...keys]
+   */
   async findAllKeys () {
     return await new Promise(resolve => {
       this.redis.scanStream({
-      // only returns keys following the pattern of `user:*`${this.type.toUpperCase()}
         match: `${this.type.toUpperCase()}:*`,
-      // returns approximately 100 elements per call
         count: 100
       }).on('data', resultKeys => resolve(resultKeys))
     })
@@ -27,6 +31,7 @@ class RedisStore {
    * @param {*} opts
    *  except:[...sid] || sid
    *  sort: Function || 'reverse'
+   * @return [...values]
    */
   async getAll (opts) {
     if (!opts) opts = {}
