@@ -11,7 +11,7 @@ let testUser = [{
   id: 'test002',
   username: 'test002'
 }]
-export default function userList (state = [...testUser], action) {
+export default function userList (state = [], action) {
   switch (action.type) {
     case RECEIVE_USER_LIST:
       return [...testUser, ...action.userList]

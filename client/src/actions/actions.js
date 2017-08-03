@@ -23,6 +23,7 @@ export function receiveChatMessage (obj) {
 export function getChatMessages () {
   return dispatch => {
     socket.get('/chatMessage', undefined, data => {
+      console.log(data)
       dispatch({
         type: GET_CHAT_MESSAGES_SUCCESS,
         messageList: data

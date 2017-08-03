@@ -26,7 +26,6 @@ module.exports = {
     let tmpPath = ctx.request.body.files.file.path
     let fileName = `${id}_${Date.now().toString()}`
     try {
-      // let user = await User.findById(id, '-password')
       let avatar = await fileUtils.upload(fileName, tmpPath)
       console.log(await User.findByIdAndUpdate(id, {$set: {avatar: avatar}}).exec())
       ctx.body = {avatar: avatar}

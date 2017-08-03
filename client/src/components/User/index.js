@@ -23,12 +23,6 @@ class Home extends React.Component {
     const image = this.imageInput.files[0]
     if (!image) return
     this.props.patchUserAvatar(image, this.props.auth.token)
-    // const reader = new FileReader()
-    // let props = this.props
-    // reader.onloadend = function () {
-    //   props.patchUserAvatar(props.user.id, image)
-    // }
-    // reader.readAsDataURL(image)
   }
   render () {
     return (

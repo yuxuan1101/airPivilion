@@ -20,7 +20,7 @@ socketRouter.post('/chatMessage', postChatMessages, async function (ctx) {
 socketRouter.get('/chatMessage', getChatMessages)
 module.exports = function (io) {
   io.on('connect', function (socket) {
-    // 设置TCP连接超时时间
+    // todo: delete socketId, use socket.id
     var socketId = socket.id
     console.log(socketId + 'connect')
     socket.on('message', function (info, fn) {

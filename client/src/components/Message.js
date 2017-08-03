@@ -11,6 +11,7 @@ import pureRender from 'pure-render-decorator'
 @pureRender
 export default class Message extends React.Component {
   render () {
+    console.log(this.props)
     let isMe = this.props.from === Symbol.for('me') || this.props.from.id === this.props.user.id
     let style = {padding: '0 15px 15px 15px', display: 'flex', flex: 'none', alignItems: 'flex-start'}
     if (isMe) style.flexDirection = 'row-reverse'
