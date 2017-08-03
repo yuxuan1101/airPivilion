@@ -27,7 +27,7 @@ module.exports = {
     let fileName = `${id}_${Date.now().toString()}`
     try {
       let avatar = await fileUtils.upload(fileName, tmpPath)
-      console.log(await User.findByIdAndUpdate(id, {$set: {avatar: avatar}}).exec())
+      await User.findByIdAndUpdate(id, {$set: {avatar: avatar}}).exec()
       ctx.body = {avatar: avatar}
     } catch (err) {
       console.log(err)
