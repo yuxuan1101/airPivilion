@@ -22,26 +22,7 @@ module.exports = {
    * }
    */
   getUserList: async function (ctx, next) {
-    let response = await onlineUserStore.getAll()
-    let unsignedVisitors = []
-    let ids = []
-    let userSocketObj = {}
-    Object.keys(response).forEach(socketId => {
-      let userId = response[socketId]
-      if (userId === 'unsigned') unsignedVisitors.push(socketId)
-      else {
-        ids.push(userId)
-        userSocketObj[userId] = socketId
-      }
-    })
-    let userList = await User.find({_id: {$in: ids}}, '_id username avatar').exec()
-    userList = userList.map(user => Object.assign({}, user.toJSON(), {
-      socketId: userSocketObj[user._id]
-    }))
-    ctx.response = {
-      userList,
-      unsignedVisitors
-    }
+    ctx.response = await onlineUserStore.getAll()
     next()
   }
 }

@@ -1,4 +1,5 @@
 const RedisStore = require('./RedisStore')
+const User = require('../models/user')
 
 class OnlineUserStore extends RedisStore {
   constructor (type = '', opts = {}) {
@@ -6,17 +7,33 @@ class OnlineUserStore extends RedisStore {
   }
   /**
    * @param {} opts
-   * @return {socketID: userID || unsigned}
+   * @return {
+   *  userList: Array [...Object]
+   *  unsignedVisitors: Array [...socketID]
+   * }
    */
   async getAll (opts) {
     let allKeys = await this.findAllKeys()
     if (!allKeys.length) return []
     let allValues = await this.redis.mget(...allKeys)
-    let obj = {}
+
+    let unsignedVisitors = []
+    let ids = []
+    let userSocketObj = {}
     allKeys.forEach((key, index) => {
-      obj[key.slice(this.type.length + 1)] = allValues[index]
+      let userId = allValues[index]
+      let socketId = key.slice(this.type.length + 1)
+      if (userId === 'unsigned') unsignedVisitors.push(socketId)
+      else {
+        ids.push(userId)
+        userSocketObj[userId] = socketId
+      }
     })
-    return obj
+    let userList = await User.find({_id: {$in: ids}}, '_id username avatar').exec()
+    userList = userList.map(user => Object.assign({}, user.toJSON(), {
+      socketId: userSocketObj[user._id]
+    }))
+    return {userList, unsignedVisitors}
   }
   async get (sid) {
     return await this.redis.get(`${this.type.toUpperCase()}:${sid}`)

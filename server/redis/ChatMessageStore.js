@@ -8,5 +8,5 @@ class ChatMessageStore extends RedisStore {
 }
 
 module.exports = {
-  chatMessageStore: new ChatMessageStore('chatMessage', {clean: true})
+  chatMessageStore: new ChatMessageStore('chatMessage')
 }
