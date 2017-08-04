@@ -11,13 +11,11 @@ import pureRender from 'pure-render-decorator'
 @pureRender
 export default class Message extends React.Component {
   render () {
-    console.log(this.props)
-    let isMe = this.props.from === Symbol.for('me') || this.props.from.id === this.props.user.id
     let style = {padding: '0 15px 15px 15px', display: 'flex', flex: 'none', alignItems: 'flex-start'}
-    if (isMe) style.flexDirection = 'row-reverse'
+    if (this.props.isMe) style.flexDirection = 'row-reverse'
     return (
       <div style={style}>
-        <Avatar size={35} src={this.props.user.avatar} style={{marginTop: '10px'}}/>
+        <Avatar size={35} src={this.props.from.avatar} style={{marginTop: '10px'}}/>
         <div style={{margin: '0 14px',
           display: 'flex',
           flexDirection: 'column',
@@ -25,7 +23,7 @@ export default class Message extends React.Component {
           maxWidth: '80%'
         }}>
           <div>
-            <span style={{fontSize: '14px'}}>{isMe ? '' : this.props.from.username}</span>
+            <span style={{fontSize: '14px'}}>{this.props.isMe ? '' : this.props.from.username}</span>
             <span style={{fontSize: '12px', marginLeft: '2px'}}>{convertByNow(this.props.time)}</span>
           </div>
           <Paper zDepth={1} style={{

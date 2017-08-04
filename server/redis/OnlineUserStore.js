@@ -31,7 +31,8 @@ class OnlineUserStore extends RedisStore {
     })
     let userList = await User.find({_id: {$in: ids}}, '_id username avatar').exec()
     userList = userList.map(user => Object.assign({}, user.toJSON(), {
-      socketId: userSocketObj[user._id]
+      socketId: userSocketObj[user._id],
+      id: user._id
     }))
     return {userList, unsignedVisitors}
   }

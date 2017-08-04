@@ -22,21 +22,22 @@ module.exports = function (io) {
   io.on('connect', function (socket) {
     // todo: delete socketId, use socket.id
     var socketId = socket.id
-    console.log(socketId + 'connect')
+    console.log(socketId + ' connect')
     socket.on('message', function (info, fn) {
-      console.log('get socket message:' + info.method + ' ' + info.path)
+      console.log('--> socket message:' + info.method + ' ' + info.path)
       socketRouter.handle(info.method, info.path, {
         socket: socket,
         callback: fn,
         req: {params: info.data}
       })
+      console.log('<-- socket message:' + info.method + ' ' + info.path)
     })
     socket.on('disconnect', () => {
       socketRouter.handle('delete', '/userlist', {
         socket: socket,
         req: {params: socketId}
       })
-      console.log(socketId + 'disconnect')
+      console.log(socketId + ' disconnect')
     })
   })
 }

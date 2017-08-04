@@ -36,7 +36,6 @@ class ChatContent extends React.Component {
         {this.props.chatContent.map((message, index) =>
           <Message
             {...message}
-            user={this.props.user}
             key={index}
           />
         )}
@@ -46,8 +45,22 @@ class ChatContent extends React.Component {
 }
 export default connect(
   state => ({
-    chatContent: state.chatContent,
-    user: state.user
+    chatContent: state.chatContent.map(message => {
+      let isMe, from
+      if (message.from === Symbol.for('me') || message.from === state.user.id) {
+        isMe = true
+        from = state.user
+      } else if (message.from.includes('socket:')) {
+        isMe = false
+        from = {
+          username: '匿名' + message.from.split(':')[1]
+        }
+      } else {
+        isMe = false
+        from = state.userList.filter(user => user.id === message.from)[0] || {}
+      }
+      return Object.assign({}, message, {isMe, from})
+    })
   }),
   {getChatMessages}
 )(ChatContent)
