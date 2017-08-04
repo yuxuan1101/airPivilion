@@ -53,11 +53,12 @@ export default connect(
       } else if (message.from.includes('socket:')) {
         isMe = false
         from = {
-          username: '匿名' + message.from.split(':')[1]
+          username: '匿名' + message.from.split(':')[1],
+          avatar: 'avatar'
         }
       } else {
         isMe = false
-        from = state.userList.filter(user => user.id === message.from)[0] || {}
+        from = state.userList.filter(user => user.id === message.from)[0] || {avatar: 'avatar'}
       }
       return Object.assign({}, message, {isMe, from})
     })

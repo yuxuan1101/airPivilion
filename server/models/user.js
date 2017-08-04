@@ -10,7 +10,10 @@ const User = new mongoose.Schema({
   type: { type: String, default: 'User' },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  avatar: { type: String, required: false }
+  createTime: {type: Date, default: Date.now},
+  avatar: { type: String, required: false },
+  github: { type: String, required: false },
+  address: { type: String, required: false }
 })
 
 User.pre('save', function (next) {

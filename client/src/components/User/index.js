@@ -61,12 +61,12 @@ class Home extends React.Component {
           </ListItem>
           <Divider/>
           <ListItem disabled>
-            <FormItem label='注册时间' value={this.props.user.createTime} commit={this.commit}/>
+            <FormItem label='注册时间' disabled value={this.props.user.createTime.toString()} commit={this.commit}/>
           </ListItem>
-          <ListItem>
+          <ListItem disabled>
             <FormItem label='地址' value={this.props.user.address} commit={this.commit}/>
           </ListItem>
-          <ListItem>
+          <ListItem disabled>
             <FormItem label='github' value={this.props.user.github} commit={this.commit}/>
           </ListItem>
         </List>

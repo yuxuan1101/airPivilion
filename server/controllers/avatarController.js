@@ -10,7 +10,7 @@ const User = require('../models/user')
 
 module.exports = {
   getAvatar: async function getAvatar (ctx, next) {
-    let avatar = ctx.params.name
+    let avatar = ctx.params.name || 'default-1.jpg'
     let avatarDir = path.join(__dirname, '../static/avatar')
     await send(ctx, avatar, {root: avatarDir})
     if (ctx.status === 404) await send(ctx, 'default-1.jpg', {root: avatarDir})

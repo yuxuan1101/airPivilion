@@ -9,20 +9,20 @@ import {SOCKET_CONNECT} from '../actions/socketListener'
 // avatar ==
 // token
 // signed 是否登录
-
-export function user (state = {
+const visitor = {
   username: '游客',
   id: undefined,
   avatar: 'avatar/default-1.jpg',
   signed: false,
   isfetching: false
-}, action) {
+}
+export function user (state = visitor, action) {
   switch (action.type) {
     case GET_USER_REQUEST:
       return Object.assign({}, state, {isfetching: true})
     case GET_USER_FAILURE:
     case LOGOUT:
-      return Object.assign({}, state, {username: '游客', id: undefined, signed: false, isfetching: false})
+      return Object.assign({}, state, visitor)
     case FETCH_AUTH_SUCCESS:
       return Object.assign({}, state, action.user, {
         signed: true,
