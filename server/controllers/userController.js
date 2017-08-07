@@ -24,7 +24,18 @@ module.exports = {
       ctx.body = {error: true, errMsg: err}
     }
   },
-  putUser: async (ctx, next) => {
-    console.log('into pustUser')
+  patchUser: async (ctx, next) => {
+    if (ctx.status === 401) return
+    const id = ctx.state.id
+    const key = ctx.params.key
+    const value = ctx.request.body
+    try {
+      await User.findByIdAndUpdate(id, {$set: {[key]: value}}).exec()
+      ctx.body = {[key]: value}
+    } catch (err) {
+      console.log(err)
+      ctx.status = 500
+      return
+    }
   }
 }

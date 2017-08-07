@@ -7,7 +7,7 @@ import {List, ListItem} from 'material-ui/List'
 import FormItem from '../FormItem'
 import { connect } from 'react-redux'
 import pureRender from 'pure-render-decorator'
-import {patchUserAvatar} from '../../actions/user'
+import {patchUserAvatar, patchUser} from '../../actions/user'
 
 @pureRender
 class Home extends React.Component {
@@ -15,9 +15,9 @@ class Home extends React.Component {
     super(props)
     this.state = {avatarHover: false}
   }
-  commit (key, value, oldValue) {
+  commit = (key, value, oldValue) => {
     if (value === oldValue) return
-    console.log(key, value, oldValue)
+    this.props.patchUser(key, value, this.props.user.id, this.props.auth.token)
   }
   handleImageChange () {
     const image = this.imageInput.files[0]
@@ -64,10 +64,10 @@ class Home extends React.Component {
             <FormItem label='注册时间' disabled value={this.props.user.createTime.toString()} commit={this.commit}/>
           </ListItem>
           <ListItem disabled>
-            <FormItem label='地址' value={this.props.user.address} commit={this.commit}/>
+            <FormItem label='地址' labelKey='address' value={this.props.user.address} commit={this.commit}/>
           </ListItem>
           <ListItem disabled>
-            <FormItem label='github' value={this.props.user.github} commit={this.commit}/>
+            <FormItem label='github' labelKey='github' value={this.props.user.github} commit={this.commit}/>
           </ListItem>
         </List>
       </Paper>
@@ -79,4 +79,4 @@ export default connect(state => {
     user: state.user,
     auth: state.auth
   }
-}, {patchUserAvatar})(Home)
+}, {patchUserAvatar, patchUser})(Home)

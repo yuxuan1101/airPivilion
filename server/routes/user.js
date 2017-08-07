@@ -13,6 +13,6 @@ router.get('/', auth.isAuthenticated, user.getUser)
 
 router.post('/', user.createUser, auth.authUser)
 
-router.put('/:id/:key', user.putUser)
+router.put('/:id/:key', auth.isAuthenticated, user.patchUser)
 
 module.exports = router

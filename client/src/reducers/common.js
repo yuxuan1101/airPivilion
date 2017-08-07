@@ -1,7 +1,7 @@
 /**
  * Created by yuxuan on 8/31/16.
  */
-import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE, GET_USER_REQUEST, GET_USER_FAILURE, PUT_AVATAR_SUCCESS} from '../actions/user'
+import {LOGOUT, FETCH_AUTH_REQUEST, FETCH_AUTH_SUCCESS, FETCH_AUTH_FAILURE, GET_USER_REQUEST, GET_USER_FAILURE, PUT_AVATAR_SUCCESS, PATCH_USER_SUCCESS} from '../actions/user'
 import {SOCKET_CONNECT} from '../actions/socketListener'
 // username
 // id ?
@@ -32,6 +32,8 @@ export function user (state = visitor, action) {
       return Object.assign({}, state, {socketId: action.socketId})
     case PUT_AVATAR_SUCCESS:
       return Object.assign({}, state, {avatar: action.avatar})
+    case PATCH_USER_SUCCESS:
+      return Object.assign({}, state, {[action.key]: action.value})
     default:
       return state
   }

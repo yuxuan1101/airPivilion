@@ -12,6 +12,7 @@ export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 export const GET_USER_FAILURE = 'GET_USER_FAILURE'
 export const LOGOUT = 'LOGOUT'
 export const PUT_AVATAR_SUCCESS = 'PUT_AVATAR_SUCCESS'
+export const PATCH_USER_SUCCESS = 'PATCH_USER_SUCCESS'
 
 export function logout (thisUrl) {
   window.localStorage.removeItem('token')
@@ -166,6 +167,23 @@ export function patchUserAvatar (image, token) {
     .then(data => dispatch({
       type: PUT_AVATAR_SUCCESS,
       avatar: data.avatar
+    }))
+  }
+}
+export function patchUser (key, value, id, token) {
+  return function (dispatch) {
+    return fetch(`user/${id}/${key}`, {
+      method: 'put',
+      body: value,
+      headers: {
+        Authorization: token
+      }
+    })
+    .then(res => res.json())
+    .then(data => dispatch({
+      type: PATCH_USER_SUCCESS,
+      key,
+      value
     }))
   }
 }

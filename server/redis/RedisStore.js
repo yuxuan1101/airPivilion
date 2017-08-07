@@ -5,7 +5,7 @@ class RedisStore {
     this.type = type
     this.redis = redis
     // clean old data.
-    if (opts.clean) this.clean().then(result => console.log(`del old keys ${result}`))
+    if (opts.clean) this.clean().then(result => console.log(`type ${type}: del old keys ${result}`))
   }
   /**
    * @return Integer delete count

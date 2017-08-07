@@ -8,6 +8,7 @@ import pureRender from 'pure-render-decorator'
 export default class FormItem extends React.Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
+    labelKey: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.string,
     commit: (props, propName, componentName) => {
@@ -27,6 +28,10 @@ export default class FormItem extends React.Component {
       editing: false
     }
   }
+  commit = (...arg) => {
+    this.props.commit(...arg)
+    this.setState({editing: false})
+  }
   render () {
     let buttonStyle = {
       cursor: 'pointer'
@@ -37,7 +42,8 @@ export default class FormItem extends React.Component {
           <span style={{marginTop: '5px', width: '70px'}}>{this.props.label + ':'}</span>
           <input type={this.props.type} defaultValue={this.props.value} ref='input'/>
           <div>
-            <FontIcon onClick={() => this.props.commit(this.props.label, this.refs.input.value, this.props.value)} style={buttonStyle} color={green100} hoverColor={green400} className="material-icons">check</FontIcon>
+            <FontIcon onClick={() => this.commit(this.props.labelKey || this.props.label, this.refs.input.value, this.props.value)}
+               style={buttonStyle} color={green100} hoverColor={green400} className="material-icons">check</FontIcon>
             <FontIcon onClick={() => this.setState({editing: false})} style={buttonStyle} color={red100} hoverColor={red400} className="material-icons">close</FontIcon>
           </div>
         </div>
