@@ -6,7 +6,7 @@
     "client-dev": "node bin/server.js",
     "client-build": "node_modules/.bin/webpack -p --config ./bin/webpack.prod.config",
     "start": "nodemon ./server/bin/run.js",
-    "pm2": "pm2 start bin/run ",
+    "pm2": "pm2 start ./server/bin/run.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
